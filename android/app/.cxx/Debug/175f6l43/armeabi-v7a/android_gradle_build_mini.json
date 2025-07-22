@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/macbook2018/Desktop/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/macbook2018/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/macbook2018/StudioProjects/nutri-care-frontend-mobile/android/app/.cxx/Debug/175f6l43/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/macbook2018/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/macbook2018/StudioProjects/nutri-care-frontend-mobile/android/app/.cxx/Debug/175f6l43/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
