@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nutri_care_mobile/providers/multi_providers.dart';
 import 'package:nutri_care_mobile/res/notifications.dart';
 import 'package:nutri_care_mobile/res/res.dart';
@@ -12,6 +13,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
   try {
     await PreferenceUtils.init();

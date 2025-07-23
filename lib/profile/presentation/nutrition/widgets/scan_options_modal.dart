@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nutri_care_mobile/profile/presentation/scanner/presentation/scanner_screen.dart';
 import 'package:nutri_care_mobile/res/assets.dart';
 
-import '../../../../features/home/presentation/home_screens/home_sub_screens/screens/report_scanner_screen.dart';
 
 enum ScanType {
   reports,
