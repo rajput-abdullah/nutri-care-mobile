@@ -5,26 +5,25 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_mlkit_document_scanner/google_mlkit_document_scanner.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:nutri_care_mobile/core/widgets/custom_button.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../../core/constants/app_colors.dart';
-import '../../../../../../profile/presentation/nutrition/widgets/scan_options_modal.dart';
+import '../../../../../../core/widgets/custom_button.dart';
+import '../../../../../../ml/cbc_classifier.dart';
+import '../../../../../../ml/tokenizer.dart';
 import '../../../../../../res/common_widgets.dart';
-import '../../../../../../res/loader.dart';
 import '../../../../../../res/res.dart';
+
+
 class ReportScannerScreen extends StatefulWidget {
-  final ScanType? scanType;
-  const ReportScannerScreen({super.key, this.scanType});
+  const ReportScannerScreen({super.key});
 
   @override
-  _ReportScannerScreenState createState() => _ReportScannerScreenState();
+  State<ReportScannerScreen> createState() => _ReportScannerScreenState();
 }
-
-class _ReportScannerScreenState extends State<ReportScannerScreen>
-    with SingleTickerProviderStateMixin {
-  final openAiKey = dotenv.env['OPENAI_API_KEY'] ?? '';
-
+class _ReportScannerScreenState extends State<ReportScannerScreen> {
   File? _pickedImage;
   String _recognizedText = '';
+  String _classificationResult = '';
   String _summaryText = '';
   DocumentScannerOptions documentOptions = DocumentScannerOptions(
     documentFormat: DocumentFormat.jpeg, // set output document format
@@ -34,85 +33,154 @@ class _ReportScannerScreenState extends State<ReportScannerScreen>
   );
 
   final openAI = OpenAI.instance.build(
-    token: dotenv.env['OPENAI_API_KEY'] ?? '';,
+    token: dotenv.env['OPENAI_API_KEY'] ?? '',
     baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 60)),
   );
 
+  late CBCWordIndex _wordIndex;
+  late CBCClassifier _classifier;
+
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _wordIndex = CBCWordIndex();
+    _classifier = CBCClassifier();
+    _initResources();
+  }
+
+  Future<void> _initResources() async {
+    await _wordIndex.loadWordIndex();
+    await _classifier.load();
+  }
+
   Future<void> _startDocumentScanner() async {
-    DocumentScanner documentScanner = DocumentScanner(options: documentOptions);
-
+    _isLoading = true;
+    final scanner = DocumentScanner(options: documentOptions);
     try {
-      // Show a loader if you have one
-      Loader().showLoader(context: context);
-
-      DocumentScanningResult result = await documentScanner.scanDocument();
+      final result = await scanner.scanDocument();
       if (result.images.isNotEmpty) {
         final scannedImage = result.images.first;
-
         setState(() {
           _pickedImage = File(scannedImage);
           _recognizedText = '';
+          _classificationResult = '';
           _summaryText = '';
         });
-
+        print("walah-1-scannedImage");
         await _scanText(File(scannedImage));
-      } else {
-        Loader().hideLoader(context);
-        // User cancelled
       }
     } catch (e) {
-      Loader().hideLoader(context);
-      print('Document scanning failed: $e');
+      print("started scanning");
+
+      debugPrint('Scanning failed: $e');
     }
   }
 
   Future<void> _scanText(File imageFile) async {
     final inputImage = InputImage.fromFile(imageFile);
     final textRecognizer = TextRecognizer();
-    final RecognizedText recognizedText =
-    await textRecognizer.processImage(inputImage);
-    final scannedText = recognizedText.text;
+    final recognizedText = await textRecognizer.processImage(inputImage);
+    setState(() {
+      _recognizedText = recognizedText.text;
+      print("walah-2-_recognizedText-->$_recognizedText");
+
+    });
     textRecognizer.close();
 
-    await _processWithChatGPT(scannedText);
+    await _classifyText(_recognizedText);
   }
 
-  Future<void> _processWithChatGPT(String scannedText) async {
-    final prompt = """
-You are a medical report parser.
-Check if the following text is a Complete Blood Count (CBC) report.
-If it is, return it wrapped as JSON in this format:-
-{"reportText": "Patient Name: John Doe Date of Birth: 1985-03-15 Report Date: 2025-07-15 TEST NAME RESULT UNIT REFERENCE RANGE Hemoglobin 14.5 g/dL 13.5 - 17.5 WBC (White Blood Cells) 6.2 x10^3/uL 4.0 - 10.0 Platelet Count 250 x10^3/uL 150 - 450 RBC (Red Blood Cells) 5.1 x10^6/uL 4.5 - 5.9 Hematocrit 43.2 % 40 - 50 MCV 84.5 fL 80 - 100 MCH 28.3 pg 27 - 33 MCHC 33.4 g/dL 32 - 36 RDW 13.1 % 11.5 - 14.5 Blood Glucose (Fasting) 92 mg/dL 70 - 100 Total Cholesterol 185 mg/dL < 200 LDL Cholesterol 110 mg/dL < 130 HDL Cholesterol 52 mg/dL > 40 Triglycerides 130 mg/dL < 150 Creatinine (Serum) 0.9 mg/dL 0.7 - 1.3 BUN 15 mg/dL 7 - 20 ALT (SGPT) 25 U/L 7 - 56 AST (SGOT) 22 U/L 10 - 40 Comments: Patient is in normal health. No significant deviations noted in current test values. Recommended to continue current lifestyle and follow up in 6 months unless symptoms develop. End of Report"}
+//   Future<void> _classifyText(String text) async {
+//     final tokens = _wordIndex.textToSequence(text, maxLen: _classifier.maxLen);
+//     final input = [tokens.map((e) => e.toDouble()).toList()];
+//
+//     final result = await _classifier.classify(input);
+//
+//     final predictedLabel = result["label"];
+//     final confidence = result["confidence"];
+//     print("Predicted: $predictedLabel with confidence: $confidence");
+//
+//     setState(() {
+//       _classificationResult = "$predictedLabel (Confidence: ${(confidence * 100).toStringAsFixed(2)}%)";
+//     });
+//
+//     if (predictedLabel == "CBC" && confidence > 0.80) {
+//       await _generateSummary(text);
+//     } else {
+//       setState(() {
+//         _summaryText = """
+// <h2>Invalid Report Detected</h2>
+// <p>This does not appear to be a CBC or valid blood report.</p>
+// <p>Please scan a proper laboratory blood test document.</p>
+// """;
+//       });
+//     }
+//
+//   }
+  Future<void> _classifyText(String text) async {
+    try {
+      print("Starting classification...");
 
-If it is NOT, reply only with: "INVALID"
+      // Tokenization
+      final tokens = _wordIndex.textToSequence(text, maxLen: 100)
+          .map((e) => e < 5000 ? e : 1) // 1 = <OOV> token index
+          .toList();
+      final input = [tokens];
+      // Classification
+      print("Input shape: ${input.length} x ${input[0].length}");
 
-The text is:
-$_recognizedText
+      final result = await _classifier.classify(input);
+
+      if (result.isEmpty || !result.containsKey("label") || !result.containsKey("confidence")) {
+        throw Exception("Model output is incomplete or malformed.");
+      }
+
+      final predictedLabel = result["label"];
+      final confidence = result["confidence"];
+      print("Predicted: $predictedLabel with confidence: ${confidence.toStringAsFixed(2)}");
+
+      setState(() {
+        _classificationResult =
+        "$predictedLabel (Confidence: ${(confidence * 100).toStringAsFixed(2)}%)";
+      });
+
+      // If it's a valid CBC report
+      if (predictedLabel == "CBC" && confidence > 0.80 && text.contains(RegExp(r'(hemoglobin|wbc|rbc|platelet|hematocrit)', caseSensitive: false))) {
+        print("Detected valid CBC report. Generating summary...");
+        await _generateSummary(text);
+      } else {
+        print("Invalid or low-confidence report detected.");
+        setState(() {
+          _summaryText = """
+<h2>Invalid Report Detected</h2>
+<p>This does not appear to be a CBC or valid blood report.</p>
+<p>Please scan a proper laboratory blood test document.</p>
 """;
+        });
+      }
+    } catch (e, stacktrace) {
+      print("❌ Error during classification: $e");
+      print("🔧 Stack trace:\n$stacktrace");
 
-
-    final request = ChatCompleteText(
-      model: GptTurboChatModel(),
-      messages: [
-        {
-          "role": "user",
-          "content": prompt,
-        }
-      ],
-      maxToken: 500,
-    );
-
-    final response = await openAI.onChatCompletion(request: request);
-
-    final content = response!.choices.first.message!.content;
-
-    if (content.trim() == "INVALID") {
-      _showInvalidReportDialog();
-      Loader().hideLoader(context);
-    } else {
-      await _generateSummary(_recognizedText);
+      setState(() {
+        _classificationResult = "Error classifying the input.";
+        _summaryText = """
+<h2>Classification Failed</h2>
+<p>Something went wrong while analyzing the document.</p>
+<p>Please try again or re-upload the report.</p>
+""";
+      });
     }
   }
+bool containsCBCKeywords(String text) {
+  final keywords = [
+    "hemoglobin", "platelet", "wbc", "rbc", "cbc", "hematocrit", "blood", "count"
+  ];
+  final lowerText = text.toLowerCase();
+  return keywords.any((word) => lowerText.contains(word));
+}
 
   Future<void> _generateSummary(String parsedReport) async {
     final summaryPrompt = """
@@ -155,39 +223,14 @@ Make sure your summary is clear, medically accurate, and easy for a patient to u
     );
 
     final response = await openAI.onChatCompletion(request: request);
-    final summary = response!.choices.first.message!.content;
+    final summary = response?.choices.first.message?.content;
     print("summary-->$summary");
-    Loader().hideLoader(context);
+    _isLoading = false;
     setState(() {
-      _summaryText = summary;
+      _summaryText = summary??"";
     });
   }
 
-
-  void _showInvalidReportDialog() {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text('Invalid Report'),
-        content: Text('Kindly scan your blood test report.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('OK'),
-          )
-        ],
-      ),
-    );
-  }
-  @override
-  void initState() {
-    super.initState();
-    _recognizedText = '';
-    _summaryText = '';
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _startDocumentScanner();
-    });
-  }
   @override
   Widget build(BuildContext context) {
     initializeResources(context: context);
@@ -216,58 +259,158 @@ Make sure your summary is clear, medically accurate, and easy for a patient to u
             if (_pickedImage != null) Image.file(_pickedImage!, height: 200),
             SizedBox(height: 20),
 
-            if (_pickedImage != null)SizedBox(height: 70,child: Text("The results provided are generated by AI and may not be fully accurate. Always consult a qualified healthcare professional for medical advice and diagnosis.")),
+            if (_pickedImage != null)SizedBox(height: 70,child: Text("️️⚠️ The results provided are generated by AI and may not be fully accurate. Always consult a qualified healthcare professional for medical advice and diagnosis.")),
 
             Expanded(
               child: SingleChildScrollView(
                 child: _summaryText.isNotEmpty
-                    ? Html(
-                  data: _summaryText,
-                  extensions: [
-                    TagExtension(
-                      tagsToExtend: {"flutter"},
-                      child: const FlutterLogo(),
+                    ? Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 1.0, vertical: 8.0),
+                  child: Container(
+                    // height: sizes!.height * 0.25,
+                    width: sizes!.width,
+                    padding: EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 3),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 5,
+                          spreadRadius: 3,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
                     ),
-                  ],
-                  style: {
-                    "p.fancy": Style(
-                      textAlign: TextAlign.center,
-                      padding: HtmlPaddings.all(16),
-                      backgroundColor: Colors.grey,
-                      margin: Margins(left: Margin(50, Unit.px), right: Margin.auto()),
-                      width: Width(300, Unit.px),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  },
-                )
+                        child: Html(
+                                          data: _summaryText,
+                                          extensions: [
+                        TagExtension(
+                          tagsToExtend: {"flutter"},
+                          child: const FlutterLogo(),
+                        ),
+                                          ],
+                                          style: {
+                        "p.fancy": Style(
+                          textAlign: TextAlign.center,
+                          padding: HtmlPaddings.all(16),
+                          backgroundColor: Colors.grey,
+                          margin: Margins(left: Margin(50, Unit.px), right: Margin.auto()),
+                          width: Width(300, Unit.px),
+                          fontWeight: FontWeight.bold,
+                        ),
+                                          },
+                                        ),
+                      ),
+                    )
                     : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 150,),
+                    _isLoading?
+                    Skeletonizer(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 1.0, vertical: 8.0),
+                        child: Container(
+                          // height: sizes!.height * 0.25,
+                          width: sizes!.width,
+                          padding: EdgeInsets.only(left: 12, right: 12, bottom: 12, top: 3),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 5,
+                                spreadRadius: 3,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              SizedBox(height: sizes!.height*0.29,
+                                child: ListView.builder(
+                                    itemCount: 6, // or any dynamic count
+                                    itemBuilder: (context, index) {
+                                      return Padding(padding: EdgeInsets.only(
+                                          bottom: 5
+                                      ),
+                                        child: RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text:
 
-                    CustomText(
-                      text: "No text recognized yet.",
-                      fontWeight: FontWeight.bold,
-                      fontSize: sizes?.fontSize20,
-                      alignment: Alignment.center,
-                      color: AppColors.blackTextColor,
-                      fontFamily: 'Inter Tight',
-                    ),
-                    SizedBox(height: 50,),
-                    CustomButton(label: "Scan Now",
+                                            "️️⚠️ The results provided are generated by AI and may not be fully accurate. Always consult a qualified healthcare professional for medical advice and diagnosis.",
 
-                      onPressed: (){
-                        _startDocumentScanner();
 
-                      },),
+
+                                          style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                "️️⚠️ The results provided are generated by AI and may not be fully accurate. Always consult a qualified healthcare professional for medical advice and diagnosis.",                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),);
+                                    }),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ):
+                        Column(
+                          children: [
+                            SizedBox(height: 150,),
+                            CustomText(
+                              text: "No text recognized yet.",
+                              fontWeight: FontWeight.bold,
+                              fontSize: sizes?.fontSize20,
+                              alignment: Alignment.center,
+                              color: AppColors.blackTextColor,
+                              fontFamily: 'Inter Tight',
+                            ),
+                            SizedBox(height: 50,),
+                            CustomButton(label: "Scan Now",
+                              onPressed: (){
+                                _startDocumentScanner();
+
+                              },),
+                          ],
+                        )
+
+
                   ],
                 ),
               ),
             ),
+            if (_pickedImage != null)
+            SizedBox(height: 55,child:
+            CustomButton(label: "Scan Again",
+
+              onPressed: (){
+                _startDocumentScanner();
+
+              },),)
+
           ],
         ),
       ),
     );
+
+
   }
 }

@@ -155,10 +155,23 @@ class _LifestyleScreen7State extends State<LifestyleScreen7> {
                       ),
                     ),
                     onPressed: () async {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        AppRoutes.dietNurtion1,
-                      );
+
+                      if(lifeStyleProvider.selectedHealthConcernOption == "Yes")
+                        {
+                          if (lifeStyleProvider.selectedHealthConcernOption!='') {} else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content:
+                                  Text("Kindly enter your health concerns.")),
+                            );
+                          }
+                        }
+                      else{
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRoutes.dietNurtion1,
+                        );
+                      }
                       // final provider = Provider.of<LifestyleAndHabitProvider>(
                       //     context,
                       //     listen: false);

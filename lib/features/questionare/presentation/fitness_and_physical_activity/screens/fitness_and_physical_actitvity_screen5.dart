@@ -58,51 +58,51 @@ class _FitnessAndPhysicalActitvityScreen5State
             SizedBox(height: 20),
             RadioOptionTile(
               title: 'Weight loss',
-              isSelected: fitnessProvider.selectedValueFitnessGoals == 'WL',
+              isSelected: fitnessProvider.selectedValueFitnessGoals == 'weight_loss',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueFitnessGoals =
-                      value! ? 'WL' : null;
+                      value! ? 'weight_loss' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Muscle gain',
-              isSelected: fitnessProvider.selectedValueFitnessGoals == 'MG',
+              isSelected: fitnessProvider.selectedValueFitnessGoals == 'muscle_gain',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueFitnessGoals =
-                      value! ? 'MG' : null;
+                      value! ? 'muscle_gain' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Endurance',
-              isSelected: fitnessProvider.selectedValueFitnessGoals == 'END',
+              isSelected: fitnessProvider.selectedValueFitnessGoals == 'endurance',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueFitnessGoals =
-                      value! ? 'END' : null;
+                      value! ? 'endurance' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Flexibility',
-              isSelected: fitnessProvider.selectedValueFitnessGoals == 'FLX',
+              isSelected: fitnessProvider.selectedValueFitnessGoals == 'flexibility',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueFitnessGoals =
-                      value! ? 'FLX' : null;
+                      value! ? 'flexibility' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Overall fitness',
-              isSelected: fitnessProvider.selectedValueFitnessGoals == 'OF',
+              isSelected: fitnessProvider.selectedValueFitnessGoals == 'overall_fitness',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueFitnessGoals =
-                      value! ? 'OF' : null;
+                      value! ? 'overall_fitness' : null;
                 });
               },
             ),

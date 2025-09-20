@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../core/routes/app_routes.dart';
@@ -14,8 +16,6 @@ import '../../../res/utils.dart';
 class LoginProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
   final Loader _loader = Loader();
   bool hidePassword = true;
   bool sendToken = false;
@@ -92,17 +92,14 @@ class LoginProvider extends ChangeNotifier {
     else {
       debugPrint("email: ${emailController.text}");
       debugPrint("password ${passwordController.text}");
-      loginApi();
+      await loginApi();
     }
   }
 
   Future<void> loginApi() async {
     try {
-      loginResponse=LoginResponse();
       _loader.showLoader(context: context);
-      // String? fcmToken = await _firebaseMessaging.getToken();
-      // await PreferenceUtils.setString("${Strings.fcmToken}${DateTime.now().millisecond}",fcmToken??"");
-      // debugPrint("fcmToken : $fcmToken");
+
       Map<String, dynamic> body = {
         "email": emailController.text.trim(),
         "password": passwordController.text.trim(),
@@ -114,19 +111,16 @@ class LoginProvider extends ChangeNotifier {
           body: body,
           modelName: Models.loginModel,
           sendToken: false);
-
-      if (loginResponse.user?.isVerified == true) {
-        _loader.hideLoader(context!);
-        if (loginResponse.user?.id != "" && loginResponse.user?.id != null) {
+      // if (loginResponse.user?.isVerified == true) {
+      //   _loader.hideLoader(context!);
+        if (loginResponse.user?.id != "" || loginResponse.user?.id != null) {
           if (rememberMe.value) {
             await PreferenceUtils.setBool(Strings.rememberMe, true);
             await PreferenceUtils.setString(Strings.rememberedEmail, emailController.text.trim().toString() );
             await PreferenceUtils.setString(Strings.rememberedPassword, passwordController.text.trim().toString());
-            PreferenceUtils.getString(Strings.rememberedPassword);
           }
           await PreferenceUtils.setLoginResponse(loginResponse);
-          reset();
-          ///hascompletedquestionaire
+          notifyListeners();
           if(loginResponse.user?.questionnaire??false)
           {
             Navigator.pushNamedAndRemoveUntil(
@@ -143,12 +137,14 @@ class LoginProvider extends ChangeNotifier {
             );
           }
         }
-      } else {
-        FocusManager.instance.primaryFocus?.unfocus();
-
-        // Toasts.getErrorToast(text: loginResponse.status);
-        _loader.hideLoader(context!);
-      }
+      // }
+      //
+      // else {
+      //   FocusManager.instance.primaryFocus?.unfocus();
+      //
+      //   // Toasts.getErrorToast(text: loginResponse.status);
+      //   _loader.hideLoader(context!);
+      // }
     } catch (err) {
       FocusManager.instance.primaryFocus?.unfocus();
 
@@ -156,5 +152,66 @@ class LoginProvider extends ChangeNotifier {
       _loader.hideLoader(context!);
     }
   }
-
+  // Future<void> loginApi() async {
+  //   _loader.showLoader(context: context);
+  //   try {
+  //     loginResponse = LoginResponse();
+  //     final body = {
+  //       "email": emailController.text.trim(),
+  //       "password": passwordController.text.trim(),
+  //       "rememberMe": rememberMe.value,
+  //     };
+  //     debugPrint("body for login : $body");
+  //
+  //     final future = MyApi.callPostApi(
+  //       url: loginApiUrl,
+  //       body: body,
+  //       modelName: Models.loginModel,
+  //       sendToken: false,
+  //     );
+  //
+  //     // Prevent indefinite hangs:
+  //     loginResponse = await future.timeout(const Duration(seconds: 20));
+  //
+  //     debugPrint("loginResponse for login : ${loginResponse.toJson()}");
+  //     //
+  //     // // Handle negative paths visibly
+  //     // if (loginResponse.user?.isVerified != true) {
+  //     //   Toasts.getErrorToast(text: (loginResponse.user?.isVerified??false)?"Verified": "Unverified");
+  //     //   return;
+  //     // }
+  //     //
+  //     // // Fix the ID check (your || check is almost always true)
+  //     // if ((loginResponse.user?.id ?? '').isEmpty) {
+  //     //   Toasts.getErrorToast(text: "Invalid user returned from server.");
+  //     //   return;
+  //     // }
+  //
+  //     if (rememberMe.value) {
+  //       await PreferenceUtils.setBool(Strings.rememberMe, true);
+  //       await PreferenceUtils.setString(Strings.rememberedEmail, emailController.text.trim());
+  //       await PreferenceUtils.setString(Strings.rememberedPassword, passwordController.text.trim());
+  //     }
+  //
+  //     await PreferenceUtils.setLoginResponse(loginResponse);
+  //     reset();
+  //
+  //     final completed = loginResponse.user?.questionnaire ?? false;
+  //     if (completed) {
+  //       Navigator.pushNamedAndRemoveUntil(context!, AppRoutes.homeScreen, (route) => false);
+  //     } else {
+  //       Navigator.pushNamedAndRemoveUntil(context!, AppRoutes.privacyPolicyScreen, (route) => false);
+  //     }
+  //   } on TimeoutException {
+  //     Toasts.getErrorToast(text: "Login timed out. Please try again.");
+  //   } catch (err, st) {
+  //     debugPrint("error during login is : $err\n$st");
+  //     Toasts.getErrorToast(text: "Login failed. Please try again.");
+  //   } finally {
+  //     // Always hide loader
+  //     if (context != null) {
+  //       _loader.hideLoader(context!);
+  //     }
+  //   }
+  // }
 }

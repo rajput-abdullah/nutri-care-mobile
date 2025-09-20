@@ -59,44 +59,44 @@ class _FitnessAndPhysicalActitvityScreen3State
             RadioOptionTile(
               title: 'Rarely',
               isSelected:
-                  fitnessProvider.selectedValueForExercisePerWeek == 'RAR',
+                  fitnessProvider.selectedValueForExercisePerWeek == 'rarely',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForExercisePerWeek =
-                      value! ? 'RAR' : null;
+                      value! ? 'rarely' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '1-2 times',
               isSelected:
-                  fitnessProvider.selectedValueForExercisePerWeek == '1-2',
+                  fitnessProvider.selectedValueForExercisePerWeek == 'one_to_two_times',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForExercisePerWeek =
-                      value! ? '1-2' : null;
+                      value! ? 'one_to_two_times' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '3-4 times',
               isSelected:
-                  fitnessProvider.selectedValueForExercisePerWeek == '3-4',
+                  fitnessProvider.selectedValueForExercisePerWeek == 'three_to_four_times',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForExercisePerWeek =
-                      value! ? '3-4' : null;
+                      value! ? 'three_to_four_times' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '5+ times',
               isSelected:
-                  fitnessProvider.selectedValueForExercisePerWeek == '5+',
+                  fitnessProvider.selectedValueForExercisePerWeek == 'five_or_more_times',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForExercisePerWeek =
-                      value! ? '5+' : null;
+                      value! ? 'five_or_more_times' : null;
                 });
               },
             ),

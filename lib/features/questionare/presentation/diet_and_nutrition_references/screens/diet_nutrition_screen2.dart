@@ -54,90 +54,90 @@ class _DietNutritionScreen2State extends State<DietNutritionScreen2> {
             SizedBox(height: 20),
             RadioOptionTile(
               title: 'Traditional',
-              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('TRD'),
+              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('traditional'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('TRD')) {
-                      dietProvider.selectedValuesForTypeOfDiet.add('TRD');
+                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('traditional')) {
+                      dietProvider.selectedValuesForTypeOfDiet.add('traditional');
                     }
                   } else {
-                    dietProvider.selectedValuesForTypeOfDiet.remove('TRD');
+                    dietProvider.selectedValuesForTypeOfDiet.remove('traditional');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Vegetarian',
-              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('VGN'),
+              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('vegetarian'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('VGN')) {
-                      dietProvider.selectedValuesForTypeOfDiet.add('VGN');
+                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('vegetarian')) {
+                      dietProvider.selectedValuesForTypeOfDiet.add('vegetarian');
                     }
                   } else {
-                    dietProvider.selectedValuesForTypeOfDiet.remove('VGN');
+                    dietProvider.selectedValuesForTypeOfDiet.remove('vegetarian');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Pescatarian',
-              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('PSC'),
+              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('pescatarian'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('PSC')) {
-                      dietProvider.selectedValuesForTypeOfDiet.add('PSC');
+                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('pescatarian')) {
+                      dietProvider.selectedValuesForTypeOfDiet.add('pescatarian');
                     }
                   } else {
-                    dietProvider.selectedValuesForTypeOfDiet.remove('PSC');
+                    dietProvider.selectedValuesForTypeOfDiet.remove('pescatarian');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Keto',
-              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('KETO'),
+              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('ketogenic'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('KETO')) {
-                      dietProvider.selectedValuesForTypeOfDiet.add('KETO');
+                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('ketogenic')) {
+                      dietProvider.selectedValuesForTypeOfDiet.add('ketogenic');
                     }
                   } else {
-                    dietProvider.selectedValuesForTypeOfDiet.remove('KETO');
+                    dietProvider.selectedValuesForTypeOfDiet.remove('ketogenic');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Paleo',
-              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('PAL'),
+              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('paleo'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('PAL')) {
-                      dietProvider.selectedValuesForTypeOfDiet.add('PAL');
+                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('paleo')) {
+                      dietProvider.selectedValuesForTypeOfDiet.add('paleo');
                     }
                   } else {
-                    dietProvider.selectedValuesForTypeOfDiet.remove('PAL');
+                    dietProvider.selectedValuesForTypeOfDiet.remove('paleo');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Gluten-Free',
-              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('GLF'),
+              isSelected: dietProvider.selectedValuesForTypeOfDiet.contains('gluten_free'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('GLF')) {
-                      dietProvider.selectedValuesForTypeOfDiet.add('GLF');
+                    if (!dietProvider.selectedValuesForTypeOfDiet.contains('gluten_free')) {
+                      dietProvider.selectedValuesForTypeOfDiet.add('gluten_free');
                     }
                   } else {
-                    dietProvider.selectedValuesForTypeOfDiet.remove('GLF');
+                    dietProvider.selectedValuesForTypeOfDiet.remove('gluten_free');
                   }
                 });
               },

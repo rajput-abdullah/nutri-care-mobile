@@ -43,8 +43,12 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:nutri_care_mobile/models/get_user_data_response.dart';
+import '../../../../network/api_service.dart';
 import '../../../../network/api_url.dart';
+import '../../../../network/models.dart';
 import '../../../../res/strings.dart';
+import '../../../../res/toasts.dart';
 import '../../../../res/utils.dart';
 
 class NutritionPlan {
@@ -77,6 +81,7 @@ class NutritionProvider extends ChangeNotifier {
   List<NutritionPlan> _plans = [];
   bool _isLoading = false;
   String? _error;
+  GetUserDataResponse getUserDataResponse = GetUserDataResponse();
 
   List<NutritionPlan> get plans => _plans;
   bool get isLoading => _isLoading;
@@ -120,4 +125,33 @@ class NutritionProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  Future<bool> getUserData() async {
+    try {
+      getUserDataResponse = await MyApi.callGetApi(
+          url: getUserDataUrl,
+          modelName: Models.getUserDataResponse);
+      if (getUserDataResponse.email != '' || getUserDataResponse.email !=null) {
+        print("getUserDataResponse: ${getUserDataResponse.toJson()}");
+        PreferenceUtils.setString(Strings.name, getUserDataResponse.profile?.name ?? '');
+        PreferenceUtils.setString(Strings.profilePicture, getUserDataResponse.profile?.image ?? '');
+        PreferenceUtils.setInt(Strings.age, getUserDataResponse.profile?.age ?? 0);
+        // PreferenceUtils.setDouble(Strings.height, getUserDataResponse.profile?.height ?? 0.0);
+        // PreferenceUtils.setDouble(Strings.weight, getUserDataResponse.profile?.weight ?? 0.0);
+        // PreferenceUtils.setDouble(Strings.timeVal, getUserDataResponse.profile?.targetWeight ?? 0.0);
+        PreferenceUtils.setString(Strings.gender, getUserDataResponse.profile?.gender ?? '');
+        PreferenceUtils.setString(Strings.email, getUserDataResponse.email ?? '');
+
+        Toasts.getSuccessToast(text: "Welcome ${getUserDataResponse.profile?.name}");
+        return true;
+      } else {
+        print("getUserDataResponse: ${getUserDataResponse.toJson()}");
+        return false;
+
+      }
+    } catch (e) {
+      print("Exception occurred in getUserDataResponse is: $e");
+      return false;
+    }
+  }
+
 }

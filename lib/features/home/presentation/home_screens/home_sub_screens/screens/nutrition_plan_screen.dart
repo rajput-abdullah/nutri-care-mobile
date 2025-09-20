@@ -169,18 +169,60 @@ class NutritionPlanScreen extends StatefulWidget {
 }
 
 class _NutritionPlanScreenState extends State<NutritionPlanScreen> {
+  bool _loadingProfile = true;
+  bool _didInitResources = false;
+  ValueNotifier<String> profileImage = ValueNotifier('');
 
+  @override
+  void initState() {
+    super.initState();
+    _loadingProfile = true;
+    _loadProfile();
+  }
 
+  Future<void> _loadProfile() async {
+    try {
+      final img = PreferenceUtils.getString(Strings.profilePicture);
+      if (!mounted) return;
+      setState(() {
+        profileImage.value = ((img != null && img.isNotEmpty) ? img : null)??"";
+        _loadingProfile = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        profileImage.value = '';
+        _loadingProfile = false;
+      });
+    }
+  }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_didInitResources) {
+      initializeResources(context: context);
+      _didInitResources = true;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     initializeResources(context: context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(
+                    context, AppRoutes.notificationScreen);
+              },
+              child: Icon(Icons.notifications, color: AppColors.greyTextColor,size: 34,)),
+        ],
         leading: GestureDetector(
           onTap: () {
             Navigator.pushNamed(
@@ -188,10 +230,58 @@ class _NutritionPlanScreenState extends State<NutritionPlanScreen> {
           },
           child: Padding(
             padding: EdgeInsets.all(5),
-            child: ProfileAvatar(
-              networkImageUrl: PreferenceUtils.getString(Strings.profilePicture) ?? "",
-              assetImagePath: Assets.profileImage,
+            child: CircleAvatar(
               radius: 30.0,
+              backgroundColor: Colors.grey.shade200,
+              child: _loadingProfile
+                  ? const SizedBox(
+                width: 60,
+                height: 60,
+                child: Center(
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              )
+                  : ClipOval(
+                child: (profileImage.value != '')
+                    ? ValueListenableBuilder<String>(
+                    valueListenable: profileImage,
+                    builder: (context, value, child) {
+                        return Image.network(
+                                          profileImage.value,
+                                          key: ValueKey(profileImage.value), // <- forces widget to update when URL changes
+
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                          loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
+                        return const SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2),
+                          ),
+                        );
+                                          },
+                                          errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          Assets.profileImage,
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        );
+                                          },
+                                        );
+                      }
+                    )
+                    : Image.asset(
+                  Assets.profileImage,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
         ),

@@ -185,19 +185,28 @@ class _DietNutritionScreen3State extends State<DietNutritionScreen3> {
                       ),
                     ),
                     onPressed: () {
-                      if (dietProvider.selectedConditionsForFoodIntolerance.isNotEmpty) {
-                        setState(() {
-                          dietProvider.currentStep++;
-                        });
+                      if(dietProvider.selectedOptionForFoodIntolerance=="Yes")
+                     {
+                       if (dietProvider.selectedConditionsForFoodIntolerance.isNotEmpty) {
+                         setState(() {
+                           dietProvider.currentStep++;
+                         });
+                         Navigator.pushReplacementNamed(
+                           context,
+                           AppRoutes.dietNurtion4,
+                         );
+                       } else {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                           SnackBar(
+                               content: Text(
+                                   "Please add at least one food intolerance or sensitivity.")),
+                         );
+                       }
+                     }
+                      else {
                         Navigator.pushReplacementNamed(
                           context,
                           AppRoutes.dietNurtion4,
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  "Please add at least one food intolerance or sensitivity.")),
                         );
                       }
                     },

@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print
 
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nutri_care_mobile/core/routes/app_routes.dart';
@@ -13,6 +13,7 @@ import '../../../../res/assets.dart';
 import '../../../../res/common_widgets.dart';
 import '../../../../res/strings.dart';
 import '../../../../res/utils.dart';
+import '../../nutrition/domain/nutrition_provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -21,10 +22,20 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<NutritionProvider>(context, listen: false).getUserData();
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     final signupProvider = Provider.of<SignupProvider>(context);
     signupProvider.init(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
@@ -86,9 +97,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         Stack(
                           alignment: Alignment.bottomRight,
                           children: [
-                            ProfileAvatar(
-                              networkImageUrl:
-                              PreferenceUtils.getString(Strings.profilePicture)??"",
+                            ProfileAvatarCustom(
+                              // Local preview right after pick:
+                              localImageFile: signupProvider.profileImage != null
+                                  ? File(signupProvider.profileImage!.path)
+                                  : null,
+                              // Fallback to network (full URL):
+                              networkImageUrl: signupProvider.imageUrl ??
+                                  PreferenceUtils.getString(Strings.profilePicture)??"",
                               assetImagePath: Assets.privacyImage,
                               radius: 50.0,
                             ),
@@ -109,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         SizedBox(height: 20),
                         InputField(
                           controller: signupProvider.fullNameController,
-                          label:PreferenceUtils.getString(Strings.userName)??"Full Name",
+                          label:PreferenceUtils.getString(Strings.name)??"Full Name",
                           keyboardType: TextInputType.name,
                           fillColor: Colors.transparent,
                             enabled:false
@@ -191,3 +207,4 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 }
+

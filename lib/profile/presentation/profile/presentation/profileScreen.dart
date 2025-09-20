@@ -91,8 +91,8 @@ class ProfilescreenState extends State<Profilescreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          (PreferenceUtils.getString(Strings.userName)?.isNotEmpty == true)
-                              ? PreferenceUtils.getString(Strings.userName)!
+                          (PreferenceUtils.getString(Strings.name)?.isNotEmpty == true)
+                              ? PreferenceUtils.getString(Strings.name)!
                               : "Abdullah Shahbaz",
                           style: TextStyle(
                             color: Colors.white,

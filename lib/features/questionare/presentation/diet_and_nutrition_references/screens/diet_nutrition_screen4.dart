@@ -180,21 +180,30 @@ class _DietNutritionScreen4State extends State<DietNutritionScreen4> {
                       ),
                     ),
                     onPressed: () {
-                      if (dietProvider.selectedConditionsForFoodIDislike
-                          .isNotEmpty) {
-                        setState(() {
-                          dietProvider.currentStep++;
-                        });
+                      if(dietProvider.selectedOptionForFoodIDislike == "Yes")
+                      {
+                        if (dietProvider.selectedConditionsForFoodIDislike
+                            .isNotEmpty) {
+                          setState(() {
+                            dietProvider.currentStep++;
+                          });
+                          Navigator.pushReplacementNamed(
+                            context,
+                            AppRoutes.dietNurtion5,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  "Please add at least one food you dislike."),
+                            ),
+                          );
+                        }
+                      }
+                      else{
                         Navigator.pushReplacementNamed(
                           context,
                           AppRoutes.dietNurtion5,
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                "Please add at least one food you dislike."),
-                          ),
                         );
                       }
                     },

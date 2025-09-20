@@ -65,11 +65,11 @@ class _HealthAndBiohakingGoalsScreen5State
               title: 'Achieving personal goals',
               isSelected:
                   healthAndBioHacking.selectedValuesForImprovingYourHealth ==
-                      'APG',
+                      'achieving_personal_goals',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValuesForImprovingYourHealth =
-                      value! ? 'APG' : null;
+                      value! ? 'achieving_personal_goals' : null;
                 });
               },
             ),
@@ -77,11 +77,11 @@ class _HealthAndBiohakingGoalsScreen5State
               title: 'Improving daily performance',
               isSelected:
                   healthAndBioHacking.selectedValuesForImprovingYourHealth ==
-                      'IDP',
+                      'improving_daily_performance',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValuesForImprovingYourHealth =
-                      value! ? 'IDP' : null;
+                      value! ? 'improving_daily_performance' : null;
                 });
               },
             ),
@@ -89,11 +89,11 @@ class _HealthAndBiohakingGoalsScreen5State
               title: 'Long-term wellness',
               isSelected:
                   healthAndBioHacking.selectedValuesForImprovingYourHealth ==
-                      'LTW',
+                      'long_term_wellness',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValuesForImprovingYourHealth =
-                      value! ? 'LTW' : null;
+                      value! ? 'long_term_wellness' : null;
                 });
               },
             ),
@@ -101,11 +101,11 @@ class _HealthAndBiohakingGoalsScreen5State
               title: 'Family or personal relationships',
               isSelected:
                   healthAndBioHacking.selectedValuesForImprovingYourHealth ==
-                      'FPR',
+                      'family_or_personal_relationships',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValuesForImprovingYourHealth =
-                      value! ? 'FPR' : null;
+                      value! ? 'family_or_personal_relationships' : null;
                 });
               },
             ),

@@ -52,29 +52,29 @@ class _LifestyleScreen2State extends State<LifestyleScreen2> {
             SizedBox(height: 20),
             RadioOptionTile(
               title: 'Low',
-              isSelected: lifeStyleProvider.selectedEnergyLevel == 'LOW',
+              isSelected: lifeStyleProvider.selectedEnergyLevel == 'low',
               onChanged: (bool? value) {
                 setState(() {
-                  lifeStyleProvider.selectedEnergyLevel = value! ? 'LOW' : null;
+                  lifeStyleProvider.selectedEnergyLevel = value! ? 'low' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Moderate',
-              isSelected: lifeStyleProvider.selectedEnergyLevel == 'MOD',
+              isSelected: lifeStyleProvider.selectedEnergyLevel == 'moderate',
               onChanged: (bool? value) {
                 setState(() {
-                  lifeStyleProvider.selectedEnergyLevel = value! ? 'MOD' : null;
+                  lifeStyleProvider.selectedEnergyLevel = value! ? 'moderate' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'High',
-              isSelected: lifeStyleProvider.selectedEnergyLevel == 'HIGH',
+              isSelected: lifeStyleProvider.selectedEnergyLevel == 'high',
               onChanged: (bool? value) {
                 setState(() {
                   lifeStyleProvider.selectedEnergyLevel =
-                      value! ? 'HIGH' : null;
+                      value! ? 'high' : null;
                 });
               },
             ),

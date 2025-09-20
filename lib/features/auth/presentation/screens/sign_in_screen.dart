@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nutri_care_mobile/core/constants/app_colors.dart';
-import 'package:nutri_care_mobile/core/theme/app_text_styles.dart';
 import 'package:nutri_care_mobile/core/widgets/custom_button.dart';
 import 'package:nutri_care_mobile/core/widgets/input_field.dart';
-import 'package:nutri_care_mobile/core/widgets/social_button.dart';
 import 'package:provider/provider.dart';
-import '../../../../res/assets.dart';
 import '../../../../res/res.dart';
 import '../../domain/login_provider.dart';
 
@@ -23,7 +20,9 @@ class _SignInScreenState extends State<SignInScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LoginProvider>().loadUserDetails();
+      final lp = context.read<LoginProvider>();
+      lp.init(context: context);
+      lp.loadUserDetails();
     });
   }
 
@@ -110,24 +109,25 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: loginProvider.rememberMe.value,
-                              onChanged: (bool? value) {
-                                loginProvider.callRememberMe(value ?? false);
-                              },
-                              activeColor: Color(0xFF1F4E6A),
-                            ),
-                            Text(
-                              "Remember me",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF1F4E6A),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Checkbox(
+                        //       value: loginProvider.rememberMe.value,
+                        //       onChanged: (bool? value) {
+                        //         print("valuse-->$value");
+                        //         loginProvider.callRememberMe(value ?? false);
+                        //       },
+                        //       activeColor: Color(0xFF1F4E6A),
+                        //     ),
+                        //     Text(
+                        //       "Remember me",
+                        //       style: TextStyle(
+                        //         fontWeight: FontWeight.bold,
+                        //         color: Color(0xFF1F4E6A),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(height: 16),
                         SizedBox(
                           width: double.infinity,

@@ -56,55 +56,55 @@ class _DietNutritionScreen5State extends State<DietNutritionScreen5> {
             RadioOptionTile(
               title: 'Halal',
               isSelected:
-                  dietProvider.selectedValueForReligiousPreference == 'HAL',
+                  dietProvider.selectedValueForReligiousPreference == 'halal',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForReligiousPreference =
-                      value! ? 'HAL' : null;
+                      value! ? 'halal' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Kosher',
               isSelected:
-                  dietProvider.selectedValueForReligiousPreference == 'KOS',
+                  dietProvider.selectedValueForReligiousPreference == 'kosher',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForReligiousPreference =
-                      value! ? 'KOS' : null;
+                      value! ? 'kosher' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Hindu Vegetarian',
               isSelected:
-                  dietProvider.selectedValueForReligiousPreference == 'HVEG',
+                  dietProvider.selectedValueForReligiousPreference == 'hindu_vegetarian',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForReligiousPreference =
-                      value! ? 'HVEG' : null;
+                      value! ? 'hindu_vegetarian' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Buddhist Vegetarian',
               isSelected:
-                  dietProvider.selectedValueForReligiousPreference == 'BVEG',
+                  dietProvider.selectedValueForReligiousPreference == 'buddhist_vegetarian',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForReligiousPreference =
-                      value! ? 'BVEG' : null;
+                      value! ? 'buddhist_vegetarian' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'No preference',
               isSelected:
-                  dietProvider.selectedValueForReligiousPreference == 'NOPREF',
+                  dietProvider.selectedValueForReligiousPreference == 'no_preference',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForReligiousPreference =
-                      value! ? 'NOPREF' : null;
+                      value! ? 'no_preference' : null;
                 });
               },
             ),

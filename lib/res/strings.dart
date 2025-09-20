@@ -21,8 +21,12 @@ class Strings {
   static const String profileName = "profile_name";
   static const String childName = "child_name";
   static const String gender = "gender";
+  static const String height = "height";
+  static const String weight = "weight";
+  static const String targetWeight = "targetWeight";
   static const String childId = "child_id";
   static const String email = "email";
+  static const String age = "age";
   static const String profilePicture = "profile_picture";
   static const String isVerified = "is_verified";
   static const String filePath = "filePath";

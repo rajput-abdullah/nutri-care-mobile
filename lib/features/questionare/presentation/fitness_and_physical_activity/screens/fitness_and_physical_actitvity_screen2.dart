@@ -59,44 +59,44 @@ class _FitnessAndPhysicalActitvityScreen2State
             RadioOptionTile(
               title: 'Sedentary',
               isSelected:
-                  fitnessProvider.selectedValueForCurrentActivity == 'SED',
+                  fitnessProvider.selectedValueForCurrentActivity == 'sedentary',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForCurrentActivity =
-                      value! ? 'SED' : null;
+                      value! ? 'sedentary' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Lightly active',
               isSelected:
-                  fitnessProvider.selectedValueForCurrentActivity == 'LGT',
+                  fitnessProvider.selectedValueForCurrentActivity == 'lightly_active',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForCurrentActivity =
-                      value! ? 'LGT' : null;
+                      value! ? 'lightly_active' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Moderately active',
               isSelected:
-                  fitnessProvider.selectedValueForCurrentActivity == 'MOD',
+                  fitnessProvider.selectedValueForCurrentActivity == 'moderately_active',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForCurrentActivity =
-                      value! ? 'MOD' : null;
+                      value! ? 'moderately_active' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Very active',
               isSelected:
-                  fitnessProvider.selectedValueForCurrentActivity == 'VRY',
+                  fitnessProvider.selectedValueForCurrentActivity == 'very_active',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForCurrentActivity =
-                      value! ? 'VRY' : null;
+                      value! ? 'very_active' : null;
                 });
               },
             ),

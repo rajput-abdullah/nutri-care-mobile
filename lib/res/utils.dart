@@ -35,6 +35,10 @@ class PreferenceUtils {
     var prefs = await _instance;
     return prefs.setBool(key, value); //?? Future.value(null);
   }
+  static Future<bool> setDouble(String key, double value) async {
+    var prefs = await _instance;
+    return prefs.setDouble(key, value); //?? Future.value(null);
+  }
 
   static bool getBool(String key, [bool? defValue]) {
     return _prefsInstance?.getBool(key) ?? defValue ?? false;
@@ -75,7 +79,6 @@ class PreferenceUtils {
   static Future setLoginResponse(LoginResponse loginResponse) async {
     PreferenceUtils.setString(Strings.accessToken, "Bearer ${loginResponse.token}");
     PreferenceUtils.setString(Strings.userId, loginResponse.user?.id ?? '');
-    PreferenceUtils.setString(Strings.userName, loginResponse.user?.name ?? '');
     // PreferenceUtils.setBool(Strings.hasCompletedSetup, loginResponse.data?.hasCompletedSetup ?? false);
     // PreferenceUtils.setString(Strings.profileId, loginResponse.data?.profiles?[0].profileUuid ?? '');
     // PreferenceUtils.setString(Strings.profileName, loginResponse.data?.profiles?[0].profileName ?? '');

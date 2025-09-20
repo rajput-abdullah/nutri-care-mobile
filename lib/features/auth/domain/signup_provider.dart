@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,12 +12,14 @@ import 'package:nutri_care_mobile/models/phone_signup_response.dart';
 import 'package:nutri_care_mobile/models/signup_response.dart';
 import 'package:nutri_care_mobile/res/res_export.dart';
 import 'package:nutri_care_mobile/res/utils.dart';
+import '../../../models/update_user_profile_response.dart';
 import '../../../models/upload_image_model.dart';
 import '../../../network/api_service.dart';
 import '../../../network/api_url.dart';
 import '../../../network/models.dart';
 import '../../../res/toasts.dart';
 import 'package:image/image.dart' as img;
+import 'package:http_parser/http_parser.dart';
 
 class SignupProvider extends ChangeNotifier {
   BuildContext? context;
@@ -38,6 +40,7 @@ class SignupProvider extends ChangeNotifier {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
   XFile? profileImage;
+  UpdateUserProfileResponse updateUserProfileResponse = UpdateUserProfileResponse();
 
   void init(BuildContext context) {
     this.context = context;
@@ -59,61 +62,57 @@ class SignupProvider extends ChangeNotifier {
       return file; // If compression fails, return the original file
     }
   }
+
   Future<void> pickProfileImage({required ImageSource source}) async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: source);
 
     if (image != null) {
-      File file = File(image.path);
-
-      // Check file size before uploading
-      // int fileSize = file.lengthSync();
-      // if (fileSize > 5 * 1024 * 1024) { // 5MB Limit
-      //   debugPrint("File is too large! Please select a smaller image.");
-      //   return;
-      // }
       profileImage = image;
       notifyListeners();
-      final imageUrl = await uploadImage(image.path);
-      if (imageUrl != null) {
+
+      final imageurl = await uploadImage(image.path);
+      if (imageurl != null) {
+        imageUrl = imageurl;
         debugPrint("Image uploaded successfully: $imageUrl");
       }
       notifyListeners();
     }
     notifyListeners();
-
   }
+
   Future<String?> uploadImage(String imagePath) async {
     try {
-      print("uploadImageUrl-->$uploadImageUrl");
+      print("uploadImageUrl-->$baseUrl/api/user/upload-image");
       print("imagePath-->$imagePath");
 
-      var url = Uri.parse(uploadImageUrl);
+      var url = Uri.parse("$baseUrl/api/user/upload-image");
       var request = http.MultipartRequest("POST", url);
 
       // Compress image before upload
       File imageFile = await compressImage(imagePath);
 
-      // Check file size again after compression
+      // Check file size after compression
       if (imageFile.lengthSync() > 5 * 1024 * 1024) {
         debugPrint("File still too large after compression. Please select a smaller image.");
-       Toasts.getWarningToast(text: "File still too large after compression. Please select a smaller image.");
+        Toasts.getWarningToast(text: "File still too large after compression. Please select a smaller image.");
         return null;
       }
 
       // Get MIME type
       var mimeType = lookupMimeType(imageFile.path) ?? "image/jpeg";
 
-      // Attach compressed image file
+      // Attach compressed image file as form-data
       var multipartFile = await http.MultipartFile.fromPath(
-        'file',
+        'file',  // The key 'file' matches the form-data key in Postman
         imageFile.path,
-        contentType: DioMediaType.parse(mimeType),
+        contentType: MediaType.parse(mimeType),
       );
 
       request.files.add(multipartFile);
       request.headers.addAll({
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        // 'Authorization': PreferenceUtils.getString(Strings.accessToken) ?? ""
       });
 
       // Send request
@@ -122,12 +121,19 @@ class SignupProvider extends ChangeNotifier {
 
       debugPrint("response.body--> $responseBody");
 
-      if (response.statusCode == 201) {
-        final uploadImageModel = uploadImageModelFromJson(responseBody);
-        imageUrl = uploadImageModel.data?.url;
-        PreferenceUtils.setString(Strings.profilePicture, imageUrl??"");
-        notifyListeners();
-        return uploadImageModel.data?.url;
+      if (response.statusCode == 200) {
+        // Parse JSON to extract imageName
+        var jsonResponse = jsonDecode(responseBody);
+        String? imageName = jsonResponse['imageName'];
+
+        if (imageName != null) {
+          notifyListeners();
+
+          // ✅ Call updateUserProfile with imageName
+          // await updateUserProfile(imageName: imageName);
+
+          return imageName;
+        }
       } else {
         debugPrint("Failed to upload image. Status code: ${response.statusCode}");
         notifyListeners();
@@ -137,52 +143,9 @@ class SignupProvider extends ChangeNotifier {
       debugPrint("Error while uploading image ==> $e");
       return null;
     }
+    return null;
   }
-  // Future<void> signupApi() async {
-  //   try {
-  //     _loader.showLoader(context: context);
-  //     // String? fcmToken = await _firebaseMessaging.getToken();
-  //     // await PreferenceUtils.setString(Strings.fcmToken,fcmToken??"");
-  //     // debugPrint("fcmToken : $fcmToken");
-  //     Map<String, dynamic> body =    {
-  //       "name": fullNameController.text,
-  //       "email": emailController.text.trim(),
-  //       "password": passwordController.text,
-  //       "profilePicture": imageUrl ?? ""
-  //     };
-  //     debugPrint("body for login : $body");
-  //     signupResponse = await MyApi.callPostApi(
-  //         url: signUpApiUrl,
-  //         body: body,
-  //         modelName: Models.signupResponse,
-  //         sendToken: false);
-  //     debugPrint("signupResponse.statusCode : ${signupResponse.statusCode }");
-  //
-  //     if (signupResponse.data != null) {
-  //       _loader.hideLoader(context!);
-  //       if (signupResponse.statusCode == 201 && signupResponse.data == null) {
-  //         Toasts.getErrorToast(text: signupResponse.status);
-  //       }
-  //       if (signupResponse.statusCode == 201 && signupResponse.data != null) {
-  //         Toasts.getSuccessToast(text: signupResponse.status);
-  //         debugPrint("AccessToken======>${signupResponse.data}");
-  //         // await PreferenceUtils.setLoginResponse(loginResponse);
-  //
-  //         Navigator.pushNamed(
-  //           context!,
-  //           '/emailVerificationScreen',
-  //           arguments: emailController.text,
-  //         );
-  //       }
-  //     } else {
-  //       Toasts.getErrorToast(text: signupResponse.status);
-  //       _loader.hideLoader(context!);
-  //     }
-  //   } catch (err) {
-  //     debugPrint("error during signup is : $err");
-  //     _loader.hideLoader(context!);
-  //   }
-  // }
+
   Future<void> emailSignupApi() async {
     try {
       _loader.showLoader(context: context);
@@ -193,7 +156,7 @@ class SignupProvider extends ChangeNotifier {
         "name": fullNameController.text,
         "email": emailController.text.trim(),
         "password": passwordController.text,
-        // "profilePicture": imageUrl ?? ""
+        "image": imageUrl ?? ""
       };
       debugPrint("body for login : $body");
       signupResponse = await MyApi.callPostApi(
@@ -236,6 +199,36 @@ class SignupProvider extends ChangeNotifier {
       _loader.hideLoader(context!);
     }
   }
+  Future<bool> updateUserProfile({required String imageName}) async {
+    try{
+      _loader.showLoader(context: context);
+      Map<String, dynamic> body = {
+        "image": imageName,
+      };
+      debugPrint("body for updating onboarding : $body");
+      updateUserProfileResponse = await MyApi.callPostApi(
+          url: updateProfileUrl,
+          body: body,
+          modelName: Models.updateUserProfileResponse,
+          sendToken: true
+      );
+      if(updateUserProfileResponse.message!='')
+      {
+        Toasts.getSuccessToast(text: updateUserProfileResponse.message);
+      }
+      PreferenceUtils.setString(Strings.profilePicture, imageName);
+
+      _loader.hideLoader(context!);
+      notifyListeners();
+      return true;
+    }
+    catch (err) {
+      debugPrint("error during onboarding is : $err");
+      _loader.hideLoader(context!);
+      return false;
+
+    }
+  }
   Future<void> phoneSignupApi() async {
     try {
       _loader.showLoader(context: context);
@@ -273,55 +266,7 @@ class SignupProvider extends ChangeNotifier {
       _loader.hideLoader(context!);
     }
   }
-//   Future<void> verifyOtpApi({
-//     required String verificationType,
-//     required String identifier,
-//     required String otpCode,
-// }) async {
-//     try {
-//       _loader.showLoader(context: context);
-//       Map<String, dynamic> body =    {
-//         "type": verificationType,
-//         "identifier": identifier,
-//         "otpCode": otpCode
-//       };
-//       debugPrint("body for phoneVerificationResponse : $body");
-//       emailOtpVerifyResponse = await MyApi.callPostApi(
-//           url: otpApiUrl,
-//           body: body,
-//           modelName: Models.phoneVerificationResponse,
-//           sendToken: false);
-//       debugPrint("phoneVerificationResponse.statusCode : ${emailOtpVerifyResponse.message }");
-//
-//       if (emailOtpVerifyResponse.data != null) {
-//         _loader.hideLoader(context!);
-//         if (emailOtpVerifyResponse.statusCode == 201 && emailOtpVerifyResponse.data != null) {
-//           Toasts.getSuccessToast(text: emailOtpVerifyResponse.data?.message);
-//           debugPrint("phoneVerificationResponse======>${emailOtpVerifyResponse.data}");
-//           if(verificationType=="phone")
-//             {
-//               Navigator.of(context!).pushNamedAndRemoveUntil(
-//                 '/signInWithPhoneNumber', // The named route of your new screen
-//                     (Route<dynamic> route) => false, // Removes all previous screens
-//               );
-//             }
-//           else if(verificationType=="email")
-//           {
-//             Navigator.of(context!).pushNamedAndRemoveUntil(
-//               '/signIn', // The named route of your new screen
-//                   (Route<dynamic> route) => false, // Removes all previous screens
-//             );
-//           }
-//         }
-//       } else {
-//         Toasts.getErrorToast(text: phoneSignupResponse.data?.message);
-//         _loader.hideLoader(context!);
-//       }
-//     } catch (err) {
-//       debugPrint("error during phoneVerificationResponse is : $err");
-//       _loader.hideLoader(context!);
-//     }
-//   }
+
   Future<void> verifyEmailOtpApi({
     required String verificationType,
     required String identifier,

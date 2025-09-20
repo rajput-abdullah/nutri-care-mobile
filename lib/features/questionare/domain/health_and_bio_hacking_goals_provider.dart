@@ -95,7 +95,7 @@ class HealthAndBioHackingGoalsProvider extends ChangeNotifier {
         "supplementsList":        medicalBackGroundProvider.vitaminsAndSupplements,
         "allergies":              medicalBackGroundProvider.selectedConditionsForAllergies,
         "pastConditions":         medicalBackGroundProvider.selectedConditionsForPastMedicalConditions,
-        "specificConcerns":        medicalBackGroundProvider.selectedConditionsForHealthConcern.first.toString(),
+        "specificConcerns":       medicalBackGroundProvider.selectedOptionForHealthConcern=="Yes"? medicalBackGroundProvider.selectedConditionsForHealthConcern.first.toString():'',
         "medicalConditions":       medicalBackGroundProvider.selectedConditions,
         "isAnyPastCondition":     medicalBackGroundProvider.selectedConditionsForPastMedicalConditions.isNotEmpty?true:false,
         "isAnyHealthConcern":    medicalBackGroundProvider.selectedConditionsForHealthConcern.isNotEmpty?true:false
@@ -103,9 +103,7 @@ class HealthAndBioHackingGoalsProvider extends ChangeNotifier {
       "lifestyleHabits": {
         "energyLevels": lifestyleAndHabitProvider.selectedEnergyLevel,
         "waterIntake": lifestyleAndHabitProvider.selectedWaterIntake,
-        // "sleepQualityCode": lifestyleAndHabitProvider.selectedSleepQuality,
-        // "stressLevelCode": lifestyleAndHabitProvider.selectedStressValues,
-        "substanceConsumptionCode": lifestyleAndHabitProvider.selectedDrugsValues
+        "substanceConsumption": lifestyleAndHabitProvider.selectedDrugsValues
       },
       "dietPreferences": {
         "diets": dietAndNutritionProvider.selectedValuesForTypeOfDiet,
@@ -113,20 +111,20 @@ class HealthAndBioHackingGoalsProvider extends ChangeNotifier {
         "foodInTolerances": dietAndNutritionProvider.selectedConditionsForFoodIntolerance,
         "isFoodDislikes": dietAndNutritionProvider.selectedConditionsForFoodIDislike.isNotEmpty?true:false,
         "foodDislikes": dietAndNutritionProvider.selectedConditionsForFoodIDislike,
-        "dietPreferenceReligiousCode": dietAndNutritionProvider.selectedValueForReligiousPreference,
-        "dietaryGoalCode": dietAndNutritionProvider.selectedValueForPrimaryDietaryGoal,
-        "mealFrequencyCode": dietAndNutritionProvider.selectedValueForMealFrequencyCode,
-        "nutrientPreferenceCode": dietAndNutritionProvider.selectedValueForNutrientPreference
+        "dietPreferenceReligious": dietAndNutritionProvider.selectedValueForReligiousPreference,
+        "dietaryGoal": dietAndNutritionProvider.selectedValueForPrimaryDietaryGoal,
+        "mealFrequency": dietAndNutritionProvider.selectedValueForMealFrequencyCode,
+        "nutrientPreference": dietAndNutritionProvider.selectedValueForNutrientPreference
       },
       "physicalActivity": {
-        "activityLevelCode": fitnessAndPhysicalActivityProvider.selectedValueForCurrentActivity,
-        "exerciseFrequencyCode": fitnessAndPhysicalActivityProvider.selectedValueForExercisePerWeek,
-        "fitnessGoalCode": fitnessAndPhysicalActivityProvider.selectedValueFitnessGoals,
-        "bodyTypeGoalCode": fitnessAndPhysicalActivityProvider.selectedValueForBodyType
+        "activityLevel": fitnessAndPhysicalActivityProvider.selectedValueForCurrentActivity,
+        "exerciseFrequency": fitnessAndPhysicalActivityProvider.selectedValueForExercisePerWeek,
+        "fitnessGoal": fitnessAndPhysicalActivityProvider.selectedValueFitnessGoals,
+        "bodyTypeGoal": fitnessAndPhysicalActivityProvider.selectedValueForBodyType
       },
       "healthGoals": {
-        "healthOptimizationCode": selectedValueForSpecificAreasOfHealth,
-        "healthMotivationCode": selectedValuesForImprovingYourHealth
+        "healthOptimization": selectedValueForSpecificAreasOfHealth,
+        "healthMotivation": selectedValuesForImprovingYourHealth
       }
     };
     debugPrint("body for update questionnaire is-->: $body");

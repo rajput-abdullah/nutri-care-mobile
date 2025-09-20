@@ -2,11 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_care_mobile/core/constants/app_colors.dart';
 import 'package:nutri_care_mobile/core/routes/app_routes.dart';
-import 'package:nutri_care_mobile/core/widgets/check_option_tile.dart';
 import 'package:nutri_care_mobile/core/widgets/progress_indicator.dart';
 import 'package:provider/provider.dart';
 import '../../../../../core/widgets/radio_widget.dart';
-import '../../../../../res/utils.dart';
 import '../domain/lifestyle_provider.dart';
 
 class LifestyleScreen5 extends StatefulWidget {
@@ -57,60 +55,60 @@ class _LifestyleScreen5State extends State<LifestyleScreen5> {
             SizedBox(height: 20),
             RadioOptionTile(
               title: 'Alcohol',
-              isSelected: lifeStyleProvider.selectedDrugsValues.contains('ALC'),
+              isSelected: lifeStyleProvider.selectedDrugsValues.contains('alcohol'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!lifeStyleProvider.selectedDrugsValues.contains('ALC')) {
-                      lifeStyleProvider.selectedDrugsValues.add('ALC');
+                    if (!lifeStyleProvider.selectedDrugsValues.contains('alcohol')) {
+                      lifeStyleProvider.selectedDrugsValues.add('alcohol');
                     }
                   } else {
-                    lifeStyleProvider.selectedDrugsValues.remove('ALC');
+                    lifeStyleProvider.selectedDrugsValues.remove('alcohol');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Caffeine',
-              isSelected: lifeStyleProvider.selectedDrugsValues.contains('CAF'),
+              isSelected: lifeStyleProvider.selectedDrugsValues.contains('caffeine'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!lifeStyleProvider.selectedDrugsValues.contains('CAF')) {
-                      lifeStyleProvider.selectedDrugsValues.add('CAF');
+                    if (!lifeStyleProvider.selectedDrugsValues.contains('caffeine')) {
+                      lifeStyleProvider.selectedDrugsValues.add('caffeine');
                     }
                   } else {
-                    lifeStyleProvider.selectedDrugsValues.remove('CAF');
+                    lifeStyleProvider.selectedDrugsValues.remove('caffeine');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Nicotine',
-              isSelected: lifeStyleProvider.selectedDrugsValues.contains('NIC'),
+              isSelected: lifeStyleProvider.selectedDrugsValues.contains('nicotine'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!lifeStyleProvider.selectedDrugsValues.contains('NIC')) {
-                      lifeStyleProvider.selectedDrugsValues.add('NIC');
+                    if (!lifeStyleProvider.selectedDrugsValues.contains('nicotine')) {
+                      lifeStyleProvider.selectedDrugsValues.add('nicotine');
                     }
                   } else {
-                    lifeStyleProvider.selectedDrugsValues.remove('NIC');
+                    lifeStyleProvider.selectedDrugsValues.remove('nicotine');
                   }
                 });
               },
             ),
             RadioOptionTile(
               title: 'Recreational Drugs',
-              isSelected: lifeStyleProvider.selectedDrugsValues.contains('Recreational Drugs'),
+              isSelected: lifeStyleProvider.selectedDrugsValues.contains('recreational_drugs'),
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
-                    if (!lifeStyleProvider.selectedDrugsValues.contains('Recreational Drugs')) {
-                      lifeStyleProvider.selectedDrugsValues.add('Recreational Drugs');
+                    if (!lifeStyleProvider.selectedDrugsValues.contains('recreational_drugs')) {
+                      lifeStyleProvider.selectedDrugsValues.add('recreational_drugs');
                     }
                   } else {
-                    lifeStyleProvider.selectedDrugsValues.remove('Recreational Drugs');
+                    lifeStyleProvider.selectedDrugsValues.remove('recreational_drugs');
                   }
                 });
               },

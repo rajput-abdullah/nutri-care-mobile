@@ -1,7 +1,8 @@
 
-const String baseUrl = "http://nutri-care-env.eba-uygpd3iz.eu-north-1.elasticbeanstalk.com";
+const String baseUrl = "http://Nutricarebackend-env.eba-prtvpej5.eu-north-1.elasticbeanstalk.com";
 
 const String auth = "$baseUrl/api/auth";
+const String getUserDataUrl = "$baseUrl/api/user/data";
 const String loginApiUrl = "$auth/login";
 const String signUpApiUrl = "$auth/signup";
 const String otpApiUrl = "$auth/verify-otp";

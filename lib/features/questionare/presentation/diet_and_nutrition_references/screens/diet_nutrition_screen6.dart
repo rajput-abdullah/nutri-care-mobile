@@ -56,55 +56,55 @@ class _DietNutritionScreen6State extends State<DietNutritionScreen6> {
             RadioOptionTile(
               title: 'Weight Loss',
               isSelected:
-                  dietProvider.selectedValueForPrimaryDietaryGoal == 'WL',
+                  dietProvider.selectedValueForPrimaryDietaryGoal == 'weight_loss',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForPrimaryDietaryGoal =
-                      value! ? 'WL' : null;
+                      value! ? 'weight_loss' : null;
                 });
               },
             ),
             RadioOptionTile(
-              title: 'Muscle Gain',
+              title: 'Muscle gain',
               isSelected:
-                  dietProvider.selectedValueForPrimaryDietaryGoal == 'MG',
+                  dietProvider.selectedValueForPrimaryDietaryGoal == 'muscle_gain',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForPrimaryDietaryGoal =
-                      value! ? 'MG' : null;
+                      value! ? 'muscle_gain' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Increased Energy',
               isSelected:
-                  dietProvider.selectedValueForPrimaryDietaryGoal == 'IE',
+                  dietProvider.selectedValueForPrimaryDietaryGoal == 'increased_energy',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForPrimaryDietaryGoal =
-                      value! ? 'IE' : null;
+                      value! ? 'increased_energy' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Improved Digestion',
               isSelected:
-                  dietProvider.selectedValueForPrimaryDietaryGoal == 'ID',
+                  dietProvider.selectedValueForPrimaryDietaryGoal == 'improved_digestion',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForPrimaryDietaryGoal =
-                      value! ? 'ID' : null;
+                      value! ? 'improved_digestion' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'General Wellness',
               isSelected:
-                  dietProvider.selectedValueForPrimaryDietaryGoal == 'GW',
+                  dietProvider.selectedValueForPrimaryDietaryGoal == 'general_wellness',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForPrimaryDietaryGoal =
-                      value! ? 'GW' : null;
+                      value! ? 'general_wellness' : null;
                 });
               },
             ),

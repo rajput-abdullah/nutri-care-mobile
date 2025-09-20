@@ -5,7 +5,6 @@ import 'package:nutri_care_mobile/core/constants/app_colors.dart';
 import 'package:nutri_care_mobile/core/routes/app_routes.dart';
 import 'package:nutri_care_mobile/core/widgets/progress_indicator.dart';
 import 'package:nutri_care_mobile/core/widgets/radio_widget.dart';
-import 'package:nutri_care_mobile/res/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domain/diet_and_nutrition_provider.dart';
@@ -57,55 +56,55 @@ class _DietNutritionScreen8State extends State<DietNutritionScreen8> {
             RadioOptionTile(
               title: 'High Protein',
               isSelected:
-                  dietProvider.selectedValueForNutrientPreference == 'HP',
+                  dietProvider.selectedValueForNutrientPreference == 'high_protein',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForNutrientPreference =
-                      value! ? 'HP' : null;
+                      value! ? 'high_protein' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Low Carb',
               isSelected:
-                  dietProvider.selectedValueForNutrientPreference == 'LC',
+                  dietProvider.selectedValueForNutrientPreference == 'low_carb',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForNutrientPreference =
-                      value! ? 'LC' : null;
+                      value! ? 'low_carb' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Fiber-Rich',
               isSelected:
-                  dietProvider.selectedValueForNutrientPreference == 'FR',
+                  dietProvider.selectedValueForNutrientPreference == 'fiber_rich',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForNutrientPreference =
-                      value! ? 'FR' : null;
+                      value! ? 'fiber_rich' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Heart-Healthy',
               isSelected:
-                  dietProvider.selectedValueForNutrientPreference == 'HH',
+                  dietProvider.selectedValueForNutrientPreference == 'heart_healthy',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForNutrientPreference =
-                      value! ? 'HH' : null;
+                      value! ? 'heart_healthy' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Immune-Boosting',
               isSelected:
-                  dietProvider.selectedValueForNutrientPreference == 'IB',
+                  dietProvider.selectedValueForNutrientPreference == 'immune_boosting',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForNutrientPreference =
-                      value! ? 'IB' : null;
+                      value! ? 'immune_boosting' : null;
                 });
               },
             ),
@@ -159,8 +158,6 @@ class _DietNutritionScreen8State extends State<DietNutritionScreen8> {
                       print(
                           "dietProvider.selectedValueForNutrientPreference-->${dietProvider.selectedValueForNutrientPreference}");
 
-                      String profileId =
-                          await PreferenceUtils.getProfileId() ?? "";
                       if (dietProvider.selectedValueForNutrientPreference !=
                               null ||
                           dietProvider.selectedValueForNutrientPreference !=

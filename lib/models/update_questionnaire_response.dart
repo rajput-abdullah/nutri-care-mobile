@@ -1,6 +1,6 @@
 import 'dart:convert';
 /// message : "Questionnaire saved successfully"
-/// questionnaire : {"id":"0ebdc14e-315e-4e47-886d-17da16b00ad4","userId":"3b9f7df1-92b2-4406-955c-e3b5150810a4","medicalBackground":{"allergies":["Peanuts","Shellfish"],"pastConditions":["Asthma"],"medicationsList":[{"name":"Aspirin","dosage":75,"frequency":1},{"name":"Metformin","dosage":500,"frequency":2}],"supplementsList":[{"name":"Vitamin D","dosage":1000,"frequency":1},{"name":"Omega-3","dosage":1000,"frequency":2}],"specificConcerns":"Recurring headaches and fatigue","medicalConditions":["Hypertension"],"takingMedications":true,"takingSupplements":true,"isAnyHealthConcern":true,"isAnyPastCondition":true},"lifestyleHabits":{"waterIntake":"12L","energyLevels":"MOD","substanceConsumptionCode":["CAF","ALC"]},"dietPreferences":{"diets":["VEG","GLF"],"foodDislikes":["Mushrooms","Broccoli"],"isFoodDislikes":true,"dietaryGoalCode":"WL","foodInTolerances":["Lactose","Gluten"],"mealFrequencyCode":"THREE","isFoodInTolerances":true,"nutrientPreferenceCode":"HP","dietPreferenceReligiousCode":"HAL"},"physicalActivity":{"fitnessGoalCode":"MG","bodyTypeGoalCode":"MUS","activityLevelCode":"MOD","exerciseFrequencyCode":"3-4"},"healthGoals":{"healthMotivationCode":"LTW","healthOptimizationCode":"EL"},"createdAt":"2025-07-21T21:03:02.336Z","updatedAt":"2025-07-21T21:03:02.336Z"}
+/// questionnaire : {"id":"05cb13b5-891c-4866-b47c-9d37e3fb4932","userId":"2651a318-1ee1-470e-9aec-d4779fdfdb04","medicalBackground":{"allergies":["Peanuts","Shellfish"],"pastConditions":["Asthma"],"medicationsList":[{"name":"Metformin","dosage":500,"frequency":2}],"supplementsList":[{"name":"Vitamin D","dosage":1000,"frequency":1}],"specificConcerns":"Frequent fatigue and low immunity","medicalConditions":["Type 2 Diabetes"],"takingMedications":true,"takingSupplements":true,"isAnyHealthConcern":true,"isAnyPastCondition":true},"lifestyleHabits":{"waterIntake":"one_to_two_liter","energyLevels":"moderate","substanceConsumption":["caffeine","alcohol"]},"dietPreferences":{"diets":["vegetarian","gluten_free"],"dietaryGoal":"general_wellness","foodDislikes":["Brussels sprouts","Mushrooms"],"mealFrequency":"three_meals","isFoodDislikes":true,"foodInTolerances":["Lactose","Soy"],"isFoodInTolerances":true,"nutrientPreference":"immune_boosting","dietPreferenceReligious":"halal"},"physicalActivity":{"fitnessGoal":"overall_fitness","bodyTypeGoal":"balanced_and_proportional","activityLevel":"moderately_active","exerciseFrequency":"three_to_four_times"},"healthGoals":{"healthMotivation":"long_term_wellness","healthOptimization":"immune_support"},"createdAt":"2025-07-30T18:57:01.013Z","updatedAt":"2025-07-30T18:57:01.013Z"}
 
 UpdateQuestionnaireResponse updateQuestionnaireResponseFromJson(String str) => UpdateQuestionnaireResponse.fromJson(json.decode(str));
 String updateQuestionnaireResponseToJson(UpdateQuestionnaireResponse data) => json.encode(data.toJson());
@@ -37,15 +37,15 @@ UpdateQuestionnaireResponse copyWith({  String? message,
 
 }
 
-/// id : "0ebdc14e-315e-4e47-886d-17da16b00ad4"
-/// userId : "3b9f7df1-92b2-4406-955c-e3b5150810a4"
-/// medicalBackground : {"allergies":["Peanuts","Shellfish"],"pastConditions":["Asthma"],"medicationsList":[{"name":"Aspirin","dosage":75,"frequency":1},{"name":"Metformin","dosage":500,"frequency":2}],"supplementsList":[{"name":"Vitamin D","dosage":1000,"frequency":1},{"name":"Omega-3","dosage":1000,"frequency":2}],"specificConcerns":"Recurring headaches and fatigue","medicalConditions":["Hypertension"],"takingMedications":true,"takingSupplements":true,"isAnyHealthConcern":true,"isAnyPastCondition":true}
-/// lifestyleHabits : {"waterIntake":"12L","energyLevels":"MOD","substanceConsumptionCode":["CAF","ALC"]}
-/// dietPreferences : {"diets":["VEG","GLF"],"foodDislikes":["Mushrooms","Broccoli"],"isFoodDislikes":true,"dietaryGoalCode":"WL","foodInTolerances":["Lactose","Gluten"],"mealFrequencyCode":"THREE","isFoodInTolerances":true,"nutrientPreferenceCode":"HP","dietPreferenceReligiousCode":"HAL"}
-/// physicalActivity : {"fitnessGoalCode":"MG","bodyTypeGoalCode":"MUS","activityLevelCode":"MOD","exerciseFrequencyCode":"3-4"}
-/// healthGoals : {"healthMotivationCode":"LTW","healthOptimizationCode":"EL"}
-/// createdAt : "2025-07-21T21:03:02.336Z"
-/// updatedAt : "2025-07-21T21:03:02.336Z"
+/// id : "05cb13b5-891c-4866-b47c-9d37e3fb4932"
+/// userId : "2651a318-1ee1-470e-9aec-d4779fdfdb04"
+/// medicalBackground : {"allergies":["Peanuts","Shellfish"],"pastConditions":["Asthma"],"medicationsList":[{"name":"Metformin","dosage":500,"frequency":2}],"supplementsList":[{"name":"Vitamin D","dosage":1000,"frequency":1}],"specificConcerns":"Frequent fatigue and low immunity","medicalConditions":["Type 2 Diabetes"],"takingMedications":true,"takingSupplements":true,"isAnyHealthConcern":true,"isAnyPastCondition":true}
+/// lifestyleHabits : {"waterIntake":"one_to_two_liter","energyLevels":"moderate","substanceConsumption":["caffeine","alcohol"]}
+/// dietPreferences : {"diets":["vegetarian","gluten_free"],"dietaryGoal":"general_wellness","foodDislikes":["Brussels sprouts","Mushrooms"],"mealFrequency":"three_meals","isFoodDislikes":true,"foodInTolerances":["Lactose","Soy"],"isFoodInTolerances":true,"nutrientPreference":"immune_boosting","dietPreferenceReligious":"halal"}
+/// physicalActivity : {"fitnessGoal":"overall_fitness","bodyTypeGoal":"balanced_and_proportional","activityLevel":"moderately_active","exerciseFrequency":"three_to_four_times"}
+/// healthGoals : {"healthMotivation":"long_term_wellness","healthOptimization":"immune_support"}
+/// createdAt : "2025-07-30T18:57:01.013Z"
+/// updatedAt : "2025-07-30T18:57:01.013Z"
 
 Questionnaire questionnaireFromJson(String str) => Questionnaire.fromJson(json.decode(str));
 String questionnaireToJson(Questionnaire data) => json.encode(data.toJson());
@@ -146,198 +146,198 @@ Questionnaire copyWith({  String? id,
 
 }
 
-/// healthMotivationCode : "LTW"
-/// healthOptimizationCode : "EL"
+/// healthMotivation : "long_term_wellness"
+/// healthOptimization : "immune_support"
 
 HealthGoals healthGoalsFromJson(String str) => HealthGoals.fromJson(json.decode(str));
 String healthGoalsToJson(HealthGoals data) => json.encode(data.toJson());
 class HealthGoals {
   HealthGoals({
-      String? healthMotivationCode, 
-      String? healthOptimizationCode,}){
-    _healthMotivationCode = healthMotivationCode;
-    _healthOptimizationCode = healthOptimizationCode;
+      String? healthMotivation, 
+      String? healthOptimization,}){
+    _healthMotivation = healthMotivation;
+    _healthOptimization = healthOptimization;
 }
 
   HealthGoals.fromJson(dynamic json) {
-    _healthMotivationCode = json['healthMotivationCode'];
-    _healthOptimizationCode = json['healthOptimizationCode'];
+    _healthMotivation = json['healthMotivation'];
+    _healthOptimization = json['healthOptimization'];
   }
-  String? _healthMotivationCode;
-  String? _healthOptimizationCode;
-HealthGoals copyWith({  String? healthMotivationCode,
-  String? healthOptimizationCode,
-}) => HealthGoals(  healthMotivationCode: healthMotivationCode ?? _healthMotivationCode,
-  healthOptimizationCode: healthOptimizationCode ?? _healthOptimizationCode,
+  String? _healthMotivation;
+  String? _healthOptimization;
+HealthGoals copyWith({  String? healthMotivation,
+  String? healthOptimization,
+}) => HealthGoals(  healthMotivation: healthMotivation ?? _healthMotivation,
+  healthOptimization: healthOptimization ?? _healthOptimization,
 );
-  String? get healthMotivationCode => _healthMotivationCode;
-  String? get healthOptimizationCode => _healthOptimizationCode;
+  String? get healthMotivation => _healthMotivation;
+  String? get healthOptimization => _healthOptimization;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['healthMotivationCode'] = _healthMotivationCode;
-    map['healthOptimizationCode'] = _healthOptimizationCode;
+    map['healthMotivation'] = _healthMotivation;
+    map['healthOptimization'] = _healthOptimization;
     return map;
   }
 
 }
 
-/// fitnessGoalCode : "MG"
-/// bodyTypeGoalCode : "MUS"
-/// activityLevelCode : "MOD"
-/// exerciseFrequencyCode : "3-4"
+/// fitnessGoal : "overall_fitness"
+/// bodyTypeGoal : "balanced_and_proportional"
+/// activityLevel : "moderately_active"
+/// exerciseFrequency : "three_to_four_times"
 
 PhysicalActivity physicalActivityFromJson(String str) => PhysicalActivity.fromJson(json.decode(str));
 String physicalActivityToJson(PhysicalActivity data) => json.encode(data.toJson());
 class PhysicalActivity {
   PhysicalActivity({
-      String? fitnessGoalCode, 
-      String? bodyTypeGoalCode, 
-      String? activityLevelCode, 
-      String? exerciseFrequencyCode,}){
-    _fitnessGoalCode = fitnessGoalCode;
-    _bodyTypeGoalCode = bodyTypeGoalCode;
-    _activityLevelCode = activityLevelCode;
-    _exerciseFrequencyCode = exerciseFrequencyCode;
+      String? fitnessGoal, 
+      String? bodyTypeGoal, 
+      String? activityLevel, 
+      String? exerciseFrequency,}){
+    _fitnessGoal = fitnessGoal;
+    _bodyTypeGoal = bodyTypeGoal;
+    _activityLevel = activityLevel;
+    _exerciseFrequency = exerciseFrequency;
 }
 
   PhysicalActivity.fromJson(dynamic json) {
-    _fitnessGoalCode = json['fitnessGoalCode'];
-    _bodyTypeGoalCode = json['bodyTypeGoalCode'];
-    _activityLevelCode = json['activityLevelCode'];
-    _exerciseFrequencyCode = json['exerciseFrequencyCode'];
+    _fitnessGoal = json['fitnessGoal'];
+    _bodyTypeGoal = json['bodyTypeGoal'];
+    _activityLevel = json['activityLevel'];
+    _exerciseFrequency = json['exerciseFrequency'];
   }
-  String? _fitnessGoalCode;
-  String? _bodyTypeGoalCode;
-  String? _activityLevelCode;
-  String? _exerciseFrequencyCode;
-PhysicalActivity copyWith({  String? fitnessGoalCode,
-  String? bodyTypeGoalCode,
-  String? activityLevelCode,
-  String? exerciseFrequencyCode,
-}) => PhysicalActivity(  fitnessGoalCode: fitnessGoalCode ?? _fitnessGoalCode,
-  bodyTypeGoalCode: bodyTypeGoalCode ?? _bodyTypeGoalCode,
-  activityLevelCode: activityLevelCode ?? _activityLevelCode,
-  exerciseFrequencyCode: exerciseFrequencyCode ?? _exerciseFrequencyCode,
+  String? _fitnessGoal;
+  String? _bodyTypeGoal;
+  String? _activityLevel;
+  String? _exerciseFrequency;
+PhysicalActivity copyWith({  String? fitnessGoal,
+  String? bodyTypeGoal,
+  String? activityLevel,
+  String? exerciseFrequency,
+}) => PhysicalActivity(  fitnessGoal: fitnessGoal ?? _fitnessGoal,
+  bodyTypeGoal: bodyTypeGoal ?? _bodyTypeGoal,
+  activityLevel: activityLevel ?? _activityLevel,
+  exerciseFrequency: exerciseFrequency ?? _exerciseFrequency,
 );
-  String? get fitnessGoalCode => _fitnessGoalCode;
-  String? get bodyTypeGoalCode => _bodyTypeGoalCode;
-  String? get activityLevelCode => _activityLevelCode;
-  String? get exerciseFrequencyCode => _exerciseFrequencyCode;
+  String? get fitnessGoal => _fitnessGoal;
+  String? get bodyTypeGoal => _bodyTypeGoal;
+  String? get activityLevel => _activityLevel;
+  String? get exerciseFrequency => _exerciseFrequency;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['fitnessGoalCode'] = _fitnessGoalCode;
-    map['bodyTypeGoalCode'] = _bodyTypeGoalCode;
-    map['activityLevelCode'] = _activityLevelCode;
-    map['exerciseFrequencyCode'] = _exerciseFrequencyCode;
+    map['fitnessGoal'] = _fitnessGoal;
+    map['bodyTypeGoal'] = _bodyTypeGoal;
+    map['activityLevel'] = _activityLevel;
+    map['exerciseFrequency'] = _exerciseFrequency;
     return map;
   }
 
 }
 
-/// diets : ["VEG","GLF"]
-/// foodDislikes : ["Mushrooms","Broccoli"]
+/// diets : ["vegetarian","gluten_free"]
+/// dietaryGoal : "general_wellness"
+/// foodDislikes : ["Brussels sprouts","Mushrooms"]
+/// mealFrequency : "three_meals"
 /// isFoodDislikes : true
-/// dietaryGoalCode : "WL"
-/// foodInTolerances : ["Lactose","Gluten"]
-/// mealFrequencyCode : "THREE"
+/// foodInTolerances : ["Lactose","Soy"]
 /// isFoodInTolerances : true
-/// nutrientPreferenceCode : "HP"
-/// dietPreferenceReligiousCode : "HAL"
+/// nutrientPreference : "immune_boosting"
+/// dietPreferenceReligious : "halal"
 
 DietPreferences dietPreferencesFromJson(String str) => DietPreferences.fromJson(json.decode(str));
 String dietPreferencesToJson(DietPreferences data) => json.encode(data.toJson());
 class DietPreferences {
   DietPreferences({
       List<String>? diets, 
+      String? dietaryGoal, 
       List<String>? foodDislikes, 
+      String? mealFrequency, 
       bool? isFoodDislikes, 
-      String? dietaryGoalCode, 
       List<String>? foodInTolerances, 
-      String? mealFrequencyCode, 
       bool? isFoodInTolerances, 
-      String? nutrientPreferenceCode, 
-      String? dietPreferenceReligiousCode,}){
+      String? nutrientPreference, 
+      String? dietPreferenceReligious,}){
     _diets = diets;
+    _dietaryGoal = dietaryGoal;
     _foodDislikes = foodDislikes;
+    _mealFrequency = mealFrequency;
     _isFoodDislikes = isFoodDislikes;
-    _dietaryGoalCode = dietaryGoalCode;
     _foodInTolerances = foodInTolerances;
-    _mealFrequencyCode = mealFrequencyCode;
     _isFoodInTolerances = isFoodInTolerances;
-    _nutrientPreferenceCode = nutrientPreferenceCode;
-    _dietPreferenceReligiousCode = dietPreferenceReligiousCode;
+    _nutrientPreference = nutrientPreference;
+    _dietPreferenceReligious = dietPreferenceReligious;
 }
 
   DietPreferences.fromJson(dynamic json) {
     _diets = json['diets'] != null ? json['diets'].cast<String>() : [];
+    _dietaryGoal = json['dietaryGoal'];
     _foodDislikes = json['foodDislikes'] != null ? json['foodDislikes'].cast<String>() : [];
+    _mealFrequency = json['mealFrequency'];
     _isFoodDislikes = json['isFoodDislikes'];
-    _dietaryGoalCode = json['dietaryGoalCode'];
     _foodInTolerances = json['foodInTolerances'] != null ? json['foodInTolerances'].cast<String>() : [];
-    _mealFrequencyCode = json['mealFrequencyCode'];
     _isFoodInTolerances = json['isFoodInTolerances'];
-    _nutrientPreferenceCode = json['nutrientPreferenceCode'];
-    _dietPreferenceReligiousCode = json['dietPreferenceReligiousCode'];
+    _nutrientPreference = json['nutrientPreference'];
+    _dietPreferenceReligious = json['dietPreferenceReligious'];
   }
   List<String>? _diets;
+  String? _dietaryGoal;
   List<String>? _foodDislikes;
+  String? _mealFrequency;
   bool? _isFoodDislikes;
-  String? _dietaryGoalCode;
   List<String>? _foodInTolerances;
-  String? _mealFrequencyCode;
   bool? _isFoodInTolerances;
-  String? _nutrientPreferenceCode;
-  String? _dietPreferenceReligiousCode;
+  String? _nutrientPreference;
+  String? _dietPreferenceReligious;
 DietPreferences copyWith({  List<String>? diets,
+  String? dietaryGoal,
   List<String>? foodDislikes,
+  String? mealFrequency,
   bool? isFoodDislikes,
-  String? dietaryGoalCode,
   List<String>? foodInTolerances,
-  String? mealFrequencyCode,
   bool? isFoodInTolerances,
-  String? nutrientPreferenceCode,
-  String? dietPreferenceReligiousCode,
+  String? nutrientPreference,
+  String? dietPreferenceReligious,
 }) => DietPreferences(  diets: diets ?? _diets,
+  dietaryGoal: dietaryGoal ?? _dietaryGoal,
   foodDislikes: foodDislikes ?? _foodDislikes,
+  mealFrequency: mealFrequency ?? _mealFrequency,
   isFoodDislikes: isFoodDislikes ?? _isFoodDislikes,
-  dietaryGoalCode: dietaryGoalCode ?? _dietaryGoalCode,
   foodInTolerances: foodInTolerances ?? _foodInTolerances,
-  mealFrequencyCode: mealFrequencyCode ?? _mealFrequencyCode,
   isFoodInTolerances: isFoodInTolerances ?? _isFoodInTolerances,
-  nutrientPreferenceCode: nutrientPreferenceCode ?? _nutrientPreferenceCode,
-  dietPreferenceReligiousCode: dietPreferenceReligiousCode ?? _dietPreferenceReligiousCode,
+  nutrientPreference: nutrientPreference ?? _nutrientPreference,
+  dietPreferenceReligious: dietPreferenceReligious ?? _dietPreferenceReligious,
 );
   List<String>? get diets => _diets;
+  String? get dietaryGoal => _dietaryGoal;
   List<String>? get foodDislikes => _foodDislikes;
+  String? get mealFrequency => _mealFrequency;
   bool? get isFoodDislikes => _isFoodDislikes;
-  String? get dietaryGoalCode => _dietaryGoalCode;
   List<String>? get foodInTolerances => _foodInTolerances;
-  String? get mealFrequencyCode => _mealFrequencyCode;
   bool? get isFoodInTolerances => _isFoodInTolerances;
-  String? get nutrientPreferenceCode => _nutrientPreferenceCode;
-  String? get dietPreferenceReligiousCode => _dietPreferenceReligiousCode;
+  String? get nutrientPreference => _nutrientPreference;
+  String? get dietPreferenceReligious => _dietPreferenceReligious;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['diets'] = _diets;
+    map['dietaryGoal'] = _dietaryGoal;
     map['foodDislikes'] = _foodDislikes;
+    map['mealFrequency'] = _mealFrequency;
     map['isFoodDislikes'] = _isFoodDislikes;
-    map['dietaryGoalCode'] = _dietaryGoalCode;
     map['foodInTolerances'] = _foodInTolerances;
-    map['mealFrequencyCode'] = _mealFrequencyCode;
     map['isFoodInTolerances'] = _isFoodInTolerances;
-    map['nutrientPreferenceCode'] = _nutrientPreferenceCode;
-    map['dietPreferenceReligiousCode'] = _dietPreferenceReligiousCode;
+    map['nutrientPreference'] = _nutrientPreference;
+    map['dietPreferenceReligious'] = _dietPreferenceReligious;
     return map;
   }
 
 }
 
-/// waterIntake : "12L"
-/// energyLevels : "MOD"
-/// substanceConsumptionCode : ["CAF","ALC"]
+/// waterIntake : "one_to_two_liter"
+/// energyLevels : "moderate"
+/// substanceConsumption : ["caffeine","alcohol"]
 
 LifestyleHabits lifestyleHabitsFromJson(String str) => LifestyleHabits.fromJson(json.decode(str));
 String lifestyleHabitsToJson(LifestyleHabits data) => json.encode(data.toJson());
@@ -345,36 +345,36 @@ class LifestyleHabits {
   LifestyleHabits({
       String? waterIntake, 
       String? energyLevels, 
-      List<String>? substanceConsumptionCode,}){
+      List<String>? substanceConsumption,}){
     _waterIntake = waterIntake;
     _energyLevels = energyLevels;
-    _substanceConsumptionCode = substanceConsumptionCode;
+    _substanceConsumption = substanceConsumption;
 }
 
   LifestyleHabits.fromJson(dynamic json) {
     _waterIntake = json['waterIntake'];
     _energyLevels = json['energyLevels'];
-    _substanceConsumptionCode = json['substanceConsumptionCode'] != null ? json['substanceConsumptionCode'].cast<String>() : [];
+    _substanceConsumption = json['substanceConsumption'] != null ? json['substanceConsumption'].cast<String>() : [];
   }
   String? _waterIntake;
   String? _energyLevels;
-  List<String>? _substanceConsumptionCode;
+  List<String>? _substanceConsumption;
 LifestyleHabits copyWith({  String? waterIntake,
   String? energyLevels,
-  List<String>? substanceConsumptionCode,
+  List<String>? substanceConsumption,
 }) => LifestyleHabits(  waterIntake: waterIntake ?? _waterIntake,
   energyLevels: energyLevels ?? _energyLevels,
-  substanceConsumptionCode: substanceConsumptionCode ?? _substanceConsumptionCode,
+  substanceConsumption: substanceConsumption ?? _substanceConsumption,
 );
   String? get waterIntake => _waterIntake;
   String? get energyLevels => _energyLevels;
-  List<String>? get substanceConsumptionCode => _substanceConsumptionCode;
+  List<String>? get substanceConsumption => _substanceConsumption;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['waterIntake'] = _waterIntake;
     map['energyLevels'] = _energyLevels;
-    map['substanceConsumptionCode'] = _substanceConsumptionCode;
+    map['substanceConsumption'] = _substanceConsumption;
     return map;
   }
 
@@ -382,10 +382,10 @@ LifestyleHabits copyWith({  String? waterIntake,
 
 /// allergies : ["Peanuts","Shellfish"]
 /// pastConditions : ["Asthma"]
-/// medicationsList : [{"name":"Aspirin","dosage":75,"frequency":1},{"name":"Metformin","dosage":500,"frequency":2}]
-/// supplementsList : [{"name":"Vitamin D","dosage":1000,"frequency":1},{"name":"Omega-3","dosage":1000,"frequency":2}]
-/// specificConcerns : "Recurring headaches and fatigue"
-/// medicalConditions : ["Hypertension"]
+/// medicationsList : [{"name":"Metformin","dosage":500,"frequency":2}]
+/// supplementsList : [{"name":"Vitamin D","dosage":1000,"frequency":1}]
+/// specificConcerns : "Frequent fatigue and low immunity"
+/// medicalConditions : ["Type 2 Diabetes"]
 /// takingMedications : true
 /// takingSupplements : true
 /// isAnyHealthConcern : true
@@ -547,9 +547,9 @@ SupplementsList copyWith({  String? name,
 
 }
 
-/// name : "Aspirin"
-/// dosage : 75
-/// frequency : 1
+/// name : "Metformin"
+/// dosage : 500
+/// frequency : 2
 
 MedicationsList medicationsListFromJson(String str) => MedicationsList.fromJson(json.decode(str));
 String medicationsListToJson(MedicationsList data) => json.encode(data.toJson());

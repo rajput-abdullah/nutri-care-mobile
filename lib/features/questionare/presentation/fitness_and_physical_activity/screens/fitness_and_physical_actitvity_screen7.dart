@@ -60,66 +60,66 @@ class _FitnessAndPhysicalActitvityScreen7State
             RadioOptionTile(
               title: 'Lean and Toned',
               isSelected:
-                  fitnessProvider.selectedValueForBodyType == 'LT',
+                  fitnessProvider.selectedValueForBodyType == 'lean_and_toned',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForBodyType =
-                      value! ? 'LT' : null;
+                      value! ? 'lean_and_toned' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Slim and Fit',
               isSelected:
-                  fitnessProvider.selectedValueForBodyType == 'SLIM',
+                  fitnessProvider.selectedValueForBodyType == 'slim_and_fit',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForBodyType =
-                      value! ? 'SLIM' : null;
+                      value! ? 'slim_and_fit' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Curvy and Healthy',
               isSelected:
-                  fitnessProvider.selectedValueForBodyType == 'CURVY',
+                  fitnessProvider.selectedValueForBodyType == 'curvy_and_healthy',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForBodyType =
-                      value! ? 'CURVY' : null;
+                      value! ? 'curvy_and_healthy' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Athletic and Endurance-Focused',
               isSelected: fitnessProvider.selectedValueForBodyType ==
-                  'ATH',
+                  'athletic_and_endurance_focused',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForBodyType =
-                      value! ? 'ATH' : null;
+                      value! ? 'athletic_and_endurance_focused' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Balanced and Proportional',
               isSelected: fitnessProvider.selectedValueForBodyType ==
-                  'BAL',
+                  'balanced_and_proportional',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForBodyType =
-                      value! ? 'BAL' : null;
+                      value! ? 'balanced_and_proportional' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'Rehabilitation and Recovery',
               isSelected: fitnessProvider.selectedValueForBodyType ==
-                  'RR',
+                  'rehabilitation_and_recovery',
               onChanged: (bool? value) {
                 setState(() {
                   fitnessProvider.selectedValueForBodyType =
-                      value! ? 'RR' : null;
+                      value! ? 'rehabilitation_and_recovery' : null;
                 });
               },
             ),

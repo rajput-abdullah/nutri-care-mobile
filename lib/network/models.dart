@@ -45,6 +45,7 @@ import '../models/email_otp_verify_response.dart';
 import '../models/error_response.dart';
 import '../models/fitness_and_physical_activity_response.dart';
 import '../models/forgot_password_response.dart';
+import '../models/get_user_data_response.dart';
 import '../models/google_login_response.dart';
 import '../models/health_and_bio_hacking_response.dart';
 import '../models/home_response.dart';
@@ -78,6 +79,7 @@ class Models {
   static const String emailOtpVerifyResponse = "emailOtpVerifyResponse";
   static const String loginModel = "LoginModel";
   static const String signupResponse = "signupResponse";
+  static const String getUserDataResponse = "getUserDataResponse";
   static const String forgotPasswordResponse = "forgotPasswordResponse";
   static const String homeDataResponse = "homeDataResponse";
   ///////Home Models
@@ -174,6 +176,8 @@ class Models {
         return SendMessageResponse.fromJson(json);
         case getAllMessagesResponse:
         return GetAllMessagesResponse.fromJson(json);
+  case getUserDataResponse:
+        return GetUserDataResponse.fromJson(json);
 
 
 

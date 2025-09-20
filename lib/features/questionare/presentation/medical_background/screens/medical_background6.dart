@@ -42,6 +42,7 @@ class _MedicalBackground6State extends State<MedicalBackground6> {
     medicalBackgroundProvider.currentStep = 5;
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
+      resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -99,7 +100,7 @@ class _MedicalBackground6State extends State<MedicalBackground6> {
                 );
               }).toList(),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Stack(
               children: [
                 TextField(
@@ -185,7 +186,26 @@ class _MedicalBackground6State extends State<MedicalBackground6> {
                       ),
                     ),
                     onPressed: () async {
-                      Navigator.pushReplacementNamed(context, AppRoutes.lifestyleScreen1);
+                      print("medicalBackgroundProvider");
+
+                      if(medicalBackgroundProvider.selectedOptionForHealthConcern=="Yes")
+                        {
+                            if (medicalBackgroundProvider.selectedConditionsForHealthConcern.isNotEmpty) {
+
+                            }
+                            else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content:
+                                        Text("Kindly enter your health concerns.")),
+                              );
+                            }
+                        }
+                      else{
+                        Navigator.pushReplacementNamed(context, AppRoutes.lifestyleScreen1);
+
+                      }
+
 
                       // String profileId =
                       //     await PreferenceUtils.getProfileId() ?? "";

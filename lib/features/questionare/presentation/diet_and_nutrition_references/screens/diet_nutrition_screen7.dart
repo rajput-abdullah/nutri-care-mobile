@@ -55,44 +55,44 @@ class _DietNutritionScreen7State extends State<DietNutritionScreen7> {
             RadioOptionTile(
               title: '1-2',
               isSelected:
-                  dietProvider.selectedValueForMealFrequencyCode == 'ONE_TWO',
+                  dietProvider.selectedValueForMealFrequencyCode == 'one_to_two_meals',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForMealFrequencyCode =
-                      value! ? 'ONE_TWO' : null;
+                      value! ? 'one_to_two_meals' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '3',
               isSelected:
-                  dietProvider.selectedValueForMealFrequencyCode == 'THREE',
+                  dietProvider.selectedValueForMealFrequencyCode == 'three_meals',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForMealFrequencyCode =
-                      value! ? 'THREE' : null;
+                      value! ? 'three_meals' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '4-5',
               isSelected:
-                  dietProvider.selectedValueForMealFrequencyCode == 'FOUR_FIVE',
+                  dietProvider.selectedValueForMealFrequencyCode == 'four_to_five_meals',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForMealFrequencyCode =
-                      value! ? 'FOUR_FIVE' : null;
+                      value! ? 'four_to_five_meals' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '6+',
               isSelected:
-                  dietProvider.selectedValueForMealFrequencyCode == 'SIX_PLUS',
+                  dietProvider.selectedValueForMealFrequencyCode == 'six_plus_meals',
               onChanged: (bool? value) {
                 setState(() {
                   dietProvider.selectedValueForMealFrequencyCode =
-                      value! ? 'SIX_PLUS' : null;
+                      value! ? 'six_plus_meals' : null;
                 });
               },
             ),

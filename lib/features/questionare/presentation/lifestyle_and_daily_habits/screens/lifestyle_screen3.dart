@@ -4,7 +4,6 @@ import 'package:nutri_care_mobile/core/routes/app_routes.dart';
 import 'package:nutri_care_mobile/core/widgets/progress_indicator.dart';
 import 'package:nutri_care_mobile/core/widgets/radio_widget.dart';
 import 'package:provider/provider.dart';
-import '../../../../../res/utils.dart';
 import '../domain/lifestyle_provider.dart';
 
 class LifestyleScreen3 extends StatefulWidget {
@@ -53,37 +52,37 @@ class _LifestyleScreen3State extends State<LifestyleScreen3> {
             SizedBox(height: 20),
             RadioOptionTile(
               title: 'Less than 1 liter',
-              isSelected: lifeStyleProvider.selectedWaterIntake == 'LT1',
+              isSelected: lifeStyleProvider.selectedWaterIntake == 'less_than_one_liter',
               onChanged: (bool? value) {
                 setState(() {
-                  lifeStyleProvider.selectedWaterIntake = value! ? 'LT1' : null;
+                  lifeStyleProvider.selectedWaterIntake = value! ? 'less_than_one_liter' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '1-2 liters',
-              isSelected: lifeStyleProvider.selectedWaterIntake == '12L',
+              isSelected: lifeStyleProvider.selectedWaterIntake == 'one_to_two_liter',
               onChanged: (bool? value) {
                 setState(() {
-                  lifeStyleProvider.selectedWaterIntake = value! ? '12L' : null;
+                  lifeStyleProvider.selectedWaterIntake = value! ? 'one_to_two_liter' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: '2-3 liters',
-              isSelected: lifeStyleProvider.selectedWaterIntake == '23L',
+              isSelected: lifeStyleProvider.selectedWaterIntake == 'two_to_three_liter',
               onChanged: (bool? value) {
                 setState(() {
-                  lifeStyleProvider.selectedWaterIntake = value! ? '23L' : null;
+                  lifeStyleProvider.selectedWaterIntake = value! ? 'two_to_three_liter' : null;
                 });
               },
             ),
             RadioOptionTile(
               title: 'More than 3 liters',
-              isSelected: lifeStyleProvider.selectedWaterIntake == 'MT3',
+              isSelected: lifeStyleProvider.selectedWaterIntake == 'more_than_three_liter',
               onChanged: (bool? value) {
                 setState(() {
-                  lifeStyleProvider.selectedWaterIntake = value! ? 'MT3' : null;
+                  lifeStyleProvider.selectedWaterIntake = value! ? 'more_than_three_liter' : null;
                 });
               },
             ),

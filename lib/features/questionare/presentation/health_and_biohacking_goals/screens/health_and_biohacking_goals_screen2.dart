@@ -62,11 +62,11 @@ class _HealthAndBiohakingGoalsScreen2State
               title: 'Mental clarity',
               isSelected:
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth ==
-                      'MC',
+                        'mental_clarity',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth =
-                      value! ? 'MC' : null;
+                      value! ? 'mental_clarity' : null;
                 });
               },
             ),
@@ -74,11 +74,11 @@ class _HealthAndBiohakingGoalsScreen2State
               title: 'Physical endurance',
               isSelected:
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth ==
-                      'PE',
+                      'physical_endurance',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth =
-                      value! ? 'PE' : null;
+                      value! ? 'physical_endurance' : null;
                 });
               },
             ),
@@ -86,11 +86,11 @@ class _HealthAndBiohakingGoalsScreen2State
               title: 'Immune support',
               isSelected:
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth ==
-                      'IS',
+                      'immune_support',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth =
-                      value! ? 'IS' : null;
+                      value! ? 'immune_support' : null;
                 });
               },
             ),
@@ -98,11 +98,11 @@ class _HealthAndBiohakingGoalsScreen2State
               title: 'Sleep quality',
               isSelected:
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth ==
-                      'SQ',
+                      'sleep_quality',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth =
-                      value! ? 'SQ' : null;
+                      value! ? 'sleep_quality' : null;
                 });
               },
             ),
@@ -110,11 +110,11 @@ class _HealthAndBiohakingGoalsScreen2State
               title: 'Energy levels',
               isSelected:
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth ==
-                      'EL',
+                      'energy_levels',
               onChanged: (bool? value) {
                 setState(() {
                   healthAndBioHacking.selectedValueForSpecificAreasOfHealth =
-                      value! ? 'EL' : null;
+                      value! ? 'energy_levels' : null;
                 });
               },
             ),

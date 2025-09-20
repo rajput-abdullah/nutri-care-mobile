@@ -14,16 +14,17 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+  await PreferenceUtils.init();
 
-  try {
-    await PreferenceUtils.init();
-    await Firebase.initializeApp(
-      // options: DefaultFirebaseOptions.currentPlatform,
-    );
-    await FirebaseMessagingService().configureFirebaseMessaging();
-  } catch (e) {
-    debugPrint('Error during initialization: $e');
-  }
+  // try {
+  //   await PreferenceUtils.init();
+  //   // await Firebase.initializeApp(
+  //     // options: DefaultFirebaseOptions.currentPlatform,
+  //   // );
+  //   // await FirebaseMessagingService().configureFirebaseMessaging();
+  // } catch (e) {
+  //   debugPrint('Error during initialization: $e');
+  // }
 
   runApp(const MyApp());
 }
