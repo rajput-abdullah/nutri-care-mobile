@@ -160,8 +160,6 @@ Ensure ML Kit dependencies are present (in your android/app/build.gradle).
 
 If using internet access for the LLM, make sure android/app/src/main/AndroidManifest.xml includes:
 
-<uses-permission android:name="android.permission.INTERNET" />
-
 ▶️ Running
 
 Debug
